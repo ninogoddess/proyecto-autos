@@ -1,0 +1,8 @@
+__pycache__/
+*.pyc
+.env
+.venv
+.ipynb_checkpoints/
+.DS_Store
+#dado que pesa mas de 100 mb no se pude subir
+data/processed/vehicles_processed.csv
