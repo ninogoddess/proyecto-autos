@@ -96,7 +96,7 @@ md_content = f"""
 | Tiempo (s) | {training_time:.2f} |
 """
 
-with open(os.path.join(RESULTS_DIR, "metrics.md"), "w") as f:
+with open(os.path.join(RESULTS_DIR, "metrics_ridge.md"), "w") as f:
     f.write(md_content)
 
 # =========================
