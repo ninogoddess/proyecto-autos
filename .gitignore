@@ -5,4 +5,4 @@ __pycache__/
 .ipynb_checkpoints/
 .DS_Store
 #dado que pesa mas de 100 mb no se pude subir
-data
+data/
