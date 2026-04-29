@@ -6,3 +6,4 @@ __pycache__/
 .DS_Store
 #dado que pesa mas de 100 mb no se pude subir
 data/
+models/random_forest/
