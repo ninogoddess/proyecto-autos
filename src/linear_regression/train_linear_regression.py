@@ -13,7 +13,7 @@ import joblib
 # =========================
 MODEL_NAME = "linear_regression"
 
-DATA_PATH = "data/processed/vehicles_processed.csv"  
+DATA_PATH = "data/processed/vehicles_processed_nums.csv"
 TARGET_COLUMN = "price"
 
 MODEL_DIR = f"models/{MODEL_NAME}"

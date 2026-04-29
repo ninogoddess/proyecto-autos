@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import os
+from sklearn.preprocessing import StandardScaler  # 👈 NUEVO
 
 # =========================================================
 # CONFIGURACIÓN DE RUTAS
@@ -26,25 +27,12 @@ Decisiones clave:
 2. Se evita el uso de One-Hot Encoding en variables de alta cardinalidad.
 3. Se preserva la información relevante mediante técnicas más eficientes.
 4. Se eliminan variables irrelevantes para el contexto del problema.
-
-Esto permite:
-- Evitar errores en sklearn (que no acepta strings)
-- Mejorar la eficiencia computacional
-- Reducir el riesgo de sobreajuste
+5. Se normalizan variables numéricas continuas para mejorar el rendimiento del modelo.
 """
 
 # =========================================================
 # ELIMINACIÓN DE VARIABLE 'state'
 # =========================================================
-"""
-JUSTIFICACIÓN:
-La variable 'state' representa estados de EE.UU., lo cual no es relevante
-para el contexto del problema, orientado a un sistema de predicción aplicable en Chile.
-
-Mantener esta variable introduciría ruido geográfico irrelevante
-y podría afectar negativamente el aprendizaje del modelo.
-"""
-
 if "state" in df.columns:
     print("Eliminando columna 'state'...")
     df = df.drop(columns=["state"])
@@ -52,21 +40,6 @@ if "state" in df.columns:
 # =========================================================
 # TARGET ENCODING PARA 'model'
 # =========================================================
-"""
-JUSTIFICACIÓN:
-La variable 'model' es altamente relevante para predecir el precio,
-pero posee una cardinalidad muy alta (muchos valores únicos).
-
-Aplicar One-Hot Encoding generaría miles de columnas, lo que:
-- Aumenta drásticamente la dimensionalidad
-- Genera sobreajuste
-- Aumenta el costo computacional
-
-SOLUCIÓN:
-Se aplica Target Encoding:
-Cada modelo se reemplaza por el precio promedio asociado a ese modelo.
-"""
-
 if "model" in df.columns:
     print("Aplicando target encoding a 'model'...")
 
@@ -76,18 +49,11 @@ if "model" in df.columns:
 
     df = df.drop(columns=["model"])
 
-    # Guardar mapping de modelos
     model_price_map.to_csv("data/processed/model_encoding_map.csv")
 
 # =========================================================
 # TRANSFORMACIÓN DE 'cylinders'
 # =========================================================
-"""
-JUSTIFICACIÓN:
-La variable 'cylinders' está en formato texto (ej: "8 cylinders"),
-pero representa una magnitud numérica real.
-"""
-
 if "cylinders" in df.columns:
     print("Procesando 'cylinders'...")
 
@@ -117,6 +83,36 @@ df = pd.get_dummies(df, columns=categorical_cols, drop_first=True)
 # =========================================================
 print("Rellenando valores NaN...")
 df = df.fillna(0)
+
+# =========================================================
+# NORMALIZACIÓN DE VARIABLES NUMÉRICAS CONTINUAS
+# =========================================================
+"""
+JUSTIFICACIÓN:
+Las variables numéricas pueden estar en distintas escalas, lo que afecta
+negativamente a modelos de regresión lineal y regularizados.
+
+Se aplica StandardScaler para:
+- Centrar los datos en media 0
+- Escalar a desviación estándar 1
+
+IMPORTANTE:
+No se escalan variables binarias (one-hot), ya que ya están en escala adecuada (0-1).
+"""
+
+print("Aplicando normalización (StandardScaler)...")
+
+# Detectar columnas numéricas reales (excluyendo binarias)
+numeric_cols = df.select_dtypes(include=["number"]).columns
+
+# Filtrar columnas binarias (solo 0 y 1)
+non_binary_cols = [
+    col for col in numeric_cols
+    if not set(df[col].unique()).issubset({0, 1})
+]
+
+scaler = StandardScaler()
+df[non_binary_cols] = scaler.fit_transform(df[non_binary_cols])
 
 # =========================================================
 # VERIFICACIÓN FINAL
