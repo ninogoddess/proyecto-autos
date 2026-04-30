@@ -327,7 +327,7 @@ A pesar de su enfoque secuencial, no logró igualar el desempeño del bosque.
 
 ---
 
-# 🔹 Comparación global
+# Comparación global
 
 | Modelo            | MAE        | RMSE       | R²         | MAPE      |
 | ----------------- | ---------- | ---------- | ---------- | --------- |
@@ -345,7 +345,7 @@ Seleccionado exclusivamente por desempeño en métricas, dado que no estamos con
 
 ---
 
-# 🔹 Conclusión
+# Conclusión
 
 El recorrido comenzó con modelos lineales que ofrecieron una comprensión inicial del problema. Ciega a los ojos del mediocre, ya llegaría otra perspectiva a imponer su calidad.
 Siendo así, fue al abandonar la linealidad cuando emergió la verdadera estructura de los datos.

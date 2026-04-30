@@ -2,65 +2,160 @@
 
 ## I. Introducción
 
-En el dinámico y caótico mercado de vehículos usados, la correcta tasación de un automóvil representa un desafío crítico. Determinar un precio justo a menudo depende de criterios altamente subjetivos o herramientas precarias, resultando en ineficiencias que afectan tanto a empresas automotoras como a usuarios particulares. 
+En el dinámico y caótico mercado de vehículos usados, la correcta tasación de un automóvil representa un desafío crítico. Determinar un precio justo a menudo depende de criterios altamente subjetivos o herramientas precarias sumado a la gran cantidad de factores que influyen en este valor, resultando en ineficiencias que afectan tanto a empresas automotoras como a usuarios particulares en la compra y venta. 
 
-Este proyecto aborda la problemática desde una rigurosa perspectiva de ciencia de datos, buscando domesticar el caos subyacente en el mercado automotriz a través del aprendizaje automático. El objetivo último es desentrañar cómo las diversas características estructurales y técnicas de un vehículo esculpen su valor monetario, proponiendo un modelo predictivo robusto, coherente y escalable.
+Este proyecto aborda la problemática desde la perspectiva de la ciencia de datos, buscando domesticar el caos subyacente en el mercado automotriz a través del aprendizaje automático. El objetivo último es desentrañar cómo las diversas características estructurales y técnicas de un vehículo esculpen su valor monetario, proponiendo un modelo predictivo robusto, coherente y escalable. Aportando así un granito de arena en la industria; creando un sistema que pueda predecir, o más bien estimar, el valor de un automóvil con base en sus semejantes que antes vinieron.
 
 ## II. Problema, Objetivos y KPIs
 
-### 2.1 Problema
+### II.i Problema y pregunta
 La determinación del precio de un vehículo usado carece de un estándar objetivo, originando inconsistencias, sobrevaloraciones o subvaloraciones en las transacciones del mercado. Surge así la pregunta analítica: **¿En qué medida es posible estimar el precio de un vehículo usado a partir de sus características estructurales y técnicas, tales como año, marca, modelo, kilometraje y tipo de combustible?**
 
-### 2.2 Objetivo General
-Desarrollar un modelo de regresión capaz de estimar con precisión el precio de vehículos usados a partir de sus características, empleando técnicas avanzadas de procesamiento de datos y aprendizaje automático.
+### II.ii Objetivo General
+Desarrollar un modelo de regresión capaz de estimar con una precisión subyacente el precio de vehículos usados a partir de sus características, empleando técnicas de procesamiento de datos y aprendizaje automático sobre un conjunto de datos de precios y características de vehículos.
 
-### 2.3 Objetivos Específicos
-1. **Realizar un proceso de limpieza y preprocesamiento** del dataset, abordando nulos, ruido y variables irrelevantes.
-2. **Analizar exploratoriamente los datos (EDA)** para develar patrones, distribuciones y relaciones latentes.
-3. **Construir y evaluar múltiples modelos de regresión**, identificando aquel que logre la mayor capacidad de abstracción y predicción.
-4. **Diseñar una interfaz simple o prototipo** que permita la interacción intuitiva del usuario final para la tasación.
+### II.iii Objetivos Específicos
+1. **Desarrollar un análisis exploratorio de datos (EDA) completo**  
+   Analizar estadísticamente y visualizar el dataset para identificar distribuciones, correlaciones y patrones relevantes entre variables predictoras y la variable objetivo.  
+   **Métrica de éxito:** Generación de al menos 8 visualizaciones relevantes y un informe con hallazgos clave documentados en notebooks y/o reportes.
+   **Plazo:** 3 semanas.
 
-### 2.4 KPIs
-- **Precisión de estimación:** Capacidad de entregar precios cercanos al valor real del mercado (medido a través de métricas como RMSE y R²).
+2. **Realizar un proceso de limpieza y preprocesamiento del dataset**  
+   Transformar el dataset original en una versión completamente utilizable para modelamiento, eliminando valores nulos, corrigiendo inconsistencias, eliminando variables irrelevantes y aplicando técnicas de codificación y normalización.  
+   **Métrica de éxito:** 100% de las variables en formato numérico, 0 valores nulos y dataset final validado sin errores de entrenamiento.  
+   **Plazo:** 4 semanas.  
+
+3. **Construir y evaluar múltiples modelos de regresión**  
+   Implementar, entrenar y comparar al menos 5 técnicas de regresión utilizando el mismo dataset procesado, evaluando su desempeño mediante métricas estandarizadas.  
+   **Métrica de éxito:** Comparación completa en base a MAE, RMSE, R² y MAPE, y selección de un modelo con R² ≥ 0.90.  
+   **Plazo:** 6 semanas.
+
+4. **Diseñar un prototipo funcional de interfaz de usuario para tasación**  
+   Desarrollar una interfaz básica que permita ingresar características de un vehículo y obtener una predicción de precio basada en el modelo seleccionado.  
+   **Métrica de éxito:** Prototipo funcional capaz de recibir inputs del usuario y generar predicciones en menos de 2 segundos.  
+   **Plazo:** 8 semanas.
+
+### II.iv KPIs
+- **Precisión de estimación:** Capacidad de entregar precios cercanos al valor real del mercado, medido a través de métricas como RMSE y R², por  ejemplo con valores cercanos a 0.40 y 0.90, respectivamente.
 - **Consistencia de resultados:** Tasaciones similares frente a vehículos de características análogas.
 - **Usabilidad de la solución:** Simplicidad en la captura de datos y claridad en la estimación.
 - **Valor práctico para el negocio:** Viabilidad del sistema para ser adoptado por tasadores, plataformas o entidades como el SII.
-(PONEER KPIS CON NUMEROS Y SI FUNCIONA )
+
 ## III. Antecedentes y Fuentes
 
-El mercado automotriz ha operado históricamente basado en heurísticas y experiencia humana. La digitalización ha permitido el registro masivo de transacciones, generando vastos océanos de datos estructurados y semi-estructurados. 
+El mercado automotriz ha operado históricamente basado en heurísticas y experiencia humana. Por su parte, la digitalización ha permitido el registro masivo de transacciones, generando vastos océanos de datos estructurados y semi-estructurados. ¿Y de que sirve un océano sin bote que lo navege en la búsqueda del saber?
 
-La fuente de información principal para este proyecto es el dataset **"Craigslist Cars & Trucks Data"**, albergado en la plataforma de ciencia de datos Kaggle. Este repositorio consolida miles de publicaciones reales de venta de vehículos en distintas regiones, reflejando el comportamiento orgánico y, a veces, errático de la oferta automotriz. (PONER LINK DEL DATA SET Y MAS FUUENTES TEORICAS TIPO MARCO)
+La fuente de información para este proyecto es el dataset **"Craigslist Cars & Trucks Data"**, albergado en la plataforma de ciencia de datos Kaggle, practicamente una versión moderna de la biblioteca de Alejandría. 
+Este repositorio consolida miles de publicaciones reales de venta de vehículos en distintas regiones, reflejando el comportamiento orgánico y, a veces, errático de la oferta automotriz. La fuente directa al data set está en la sección V del presente informe, adémas del README principal.
+El desarrollo del presente proyecto se sustenta en una combinación de fuentes empíricas, técnicas y teóricas que permiten garantizar tanto la validez metodológica como la solidez del modelamiento aplicado. (CITA XD)
+
+
+Desde el punto de vista técnico, se empleó la librería `skicit-learn`, ampliamente reconocida en la comunidad científica y profesional por su implementación robusta de algoritmos de machine learning. Esta herramienta permite la implementación de modelos de regresión lineal, regularizada y basadas en ensambles , además de proveer funciones para evaluación mediante métricas estandarizadas como MAE, RMSE y R². (CITA XD)
+
+
+El sustento teórico de los modelos utilizados se basa en la literatura clásica del aprendizaje estadístico, particularmente en los principios de regresión y métodos de ensamble descritos en obras fundamentales del área. Estos enfoques permiten comprender tanto las relaciones lineales como no lineales presentes en los datos, así como mejorar la capacidad predictiva mediante la combinación de múltiples modelos.
+
+Asimismo, el enfoque metodológico del proyecto se inspira en el modelo CRISP-DM descrito en `Una guía de minería de datos paso a paso`, el cual estructura el proceso de ciencia de datos en fases iterativas que van desde la comprensión del problema hasta la evaluación del modelo. Este marco permitió organizar el trabajo de manera sistemática, asegurando coherencia entre los objetivos planteados y las etapas de desarrollo. (CITA XD)
+
+
+En relación con el preprocesamiento de datos, se consideraron técnicas ampliamente documentadas en la literatura, tales como la codificación de variables categóricas mediante One-Hot Encoding y Target Encoding, así como la normalización de variables numéricas. Estas transformaciones resultan esenciales para adaptar los datos a los requerimientos de los algoritmos de aprendizaje supervisado, evitando sesgos y mejorando la estabilidad del entrenamiento. Así se describe en `Una introducción al arendisaje estadístico`. (CITA XD)
+
+
 
 ## IV. Requisitos del Proyecto
 
-### Funcionales
+### IV.i Funcionales
 - El sistema debe permitir el **entrenamiento de múltiples modelos** predictivos para comparar sus rendimientos.
-- Se exige la **generación de métricas** claras y automatizadas tras el entrenamiento de cada algoritmo.
-- Debe existir un mecanismo de **almacenamiento estructurado** tanto para los datos procesados como para los modelos entrenados (.pkl).
+- Se exige la **generación de métricas** claras y automatizadas tras el entrenamiento de cada algoritmo, no guardado a mano.
+- Debe existir un mecanismo de **almacenamiento estructurado** tanto para los datos procesados como para los modelos entrenados o .pkl.
 
-### No funcionales
+### IV.ii No funcionales
 - **Escalabilidad:** El pipeline de procesamiento debe ser capaz de absorber nuevos volúmenes de datos sin colapsar.
 - **Mantenibilidad:** La arquitectura de código debe ser modular, permitiendo aislar el preprocesamiento, el entrenamiento de cada modelo y la evaluación.
 - **Tiempo de ejecución razonable:** El entrenamiento de los algoritmos y la inferencia deben ejecutarse en un marco temporal que no obstaculice el flujo de trabajo analítico.
 
 ## V. Dataset
 
-### Descripción
+### V.i Descripción
 El dataset "Craigslist Cars & Trucks Data" cuenta en su origen con:
 - **Registros:** 426,880
 - **Variables:** 26
 
 Contiene atributos esenciales como precio (`price`), año (`year`), fabricante (`manufacturer`), modelo (`model`), kilometraje (`odometer`), y ubicación geográfica (`lat`, `long`), además de descriptores categóricos (`condition`, `fuel`, `transmission`, entre otros).
 
-### Fuente
-Obtenido desde Kaggle:
-https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data
 
-### Justificación
+XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+
+El conjunto de datos constituye la materia prima sobre la cual se edifica todo el proceso analítico. Su calidad, estructura y pertinencia determinan no solo la viabilidad del modelamiento, sino también la profundidad de las conclusiones a alcanzar.
+
+---
+
+## V.i Descripción del Dataset
+
+El dataset utilizado corresponde a un conjunto de aproximadamente 426.000 registros de vehículos, cada uno descrito a través de 26 variables que combinan información numérica y categórica.
+
+En términos estructurales, el dataset presenta:
+
+- Variables numéricas: `price`, `year`, `odometer`, `lat`, `long`
+- Variables categóricas: `manufacturer`, `model`, `fuel`, `transmission`, `condition`, `type`, entre otras
+- Variables de identificación y metadata: `id`, `url`, `region`, `image_url`, `posting_date`
+
+La variable objetivo del problema es `price`, la cual representa el precio del vehículo y constituye el eje central del modelamiento predictivo.
+
+Desde una perspectiva de tipos de datos:
+
+- 5 variables tipo float  
+- 2 variables tipo entero  
+- 19 variables tipo categórico (texto)
+
+
+---
+
+## 5.2 Fuente de los Datos
+
+El dataset fue obtenido desde la plataforma Kaagle, una de las principales fuentes de datasets abiertos en el ámbito de la ciencia de datos.
+
+En particular, el conjunto corresponde a publicaciones reales de vehículos en plataformas de venta, lo que implica que los datos reflejan condiciones de mercado, comportamientos de usuarios y variabilidad real en los precios.
+
+Esta procedencia otorga al dataset un carácter empírico y aplicado, alejándolo de datos sintéticos o simulados.
+
+**Obtenido desde Kaggle:**
+`https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data`
+
+---
+
+## 5.3 Justificación del Dataset
+
+La elección de este dataset responde a múltiples criterios de pertinencia técnica y relevancia práctica.
+
+En primer lugar, el dataset contiene una variable objetivo clara (`price`) directamente alineada con el problema de negocio; la estimación del valor de un vehículo.
+
+En segundo lugar, incorpora un conjunto amplio y diverso de variables predictoras, tales como:
+
+- características técnicas (`year`, `cylinders`, `fuel`)  
+- características de uso (`odometer`)  
+- atributos categóricos (`manufacturer`, `model`, `type`)  
+
+Permitiendo modelar el problema desde múltiples dimensiones.
+
+Adicionalmente, el tamaño del dataset (más de 400.000 registros iniciales) proporciona suficiente volumen de información para entrenar modelos robustos y reducir el riesgo de sobreajuste.
+
+Asimismo, su uso también implica desafíos:
+
+- alta presencia de valores faltantes  
+- variables con alta cardinalidad, como `model`  
+- ruido inherente a datos reales  
+
+Lejos de ser una desventaja absoluta, estos elementos convierten al dataset en un escenario realista, donde las decisiones de preprocesamiento y modelamiento adquieren un rol fundamental.
+
 La pertinencia del dataset es absoluta: contiene directamente nuestra variable objetivo (`price`) y una pluralidad de variables independientes, permitiendo que un algoritmo establezca la topología multidimensional que relaciona las cualidades físicas de un automóvil con su valor monetario temporal.
 
-## VI. Metodología
+En síntesis:
+
+> ningún dataset es perfecto, se trata de ser suficientemente complejo y rico como para exigir un modelo que realmente comprenda la realidad que intenta predecir.
+
+## VI. Metodología (HASTA AQUI REVISE)
 
 El proyecto se alinea bajo los principios de la metodología **CRISP-DM**, o Cross-Industry Standard Process for Data Mining:
 1. **Business Understanding:** Definición del problema de tasación inconsistente.
