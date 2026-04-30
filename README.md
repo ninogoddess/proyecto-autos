@@ -127,22 +127,81 @@ El dataset permite desarrollar soluciones de alto valor, tales como:
 proyecto-autos/
 │
 ├── data/
-│ ├── raw/
-│ │ ├── datos_crudos_ejemplos.csv
-│ ├── processed/
-│ │ ├── datos_procesados_ejemplos.csv
+│   ├── raw/
+│   │   ├── datos_crudos_ejemplos.csv
+│   │
+│   ├── processed/
+│   │   ├── datos_procesados_ejemplos.csv
+│   │   ├── vehicles_processed.csv 
+│   │   ├── vehicles_processed_nums.csv //no está en github dado el tamaño
+│   │   ├── model_encoding_map.csv
 │
 ├── notebooks/
-│ ├── 00_obtencion _data.ipynb
-│ ├── 01_EDA_primer_avance_CD_autos.ipynb
-│ ├── 02_preprocessing.ipynb
+│   ├── 00_obtencion_data.ipynb
+│   ├── 01_EDA_primer_avance_CD_autos.ipynb
+│   ├── 02_preprocessing.ipynb
+│   ├── uso_dataset_celso_kaagle.yynb
 │
 ├── src/
+│   │
+│   ├── encode_dataset.py
+│   │
+│   ├── linear_regression/
+│   │   ├── train_linear_regression.py
+│   │
+│   ├── ridge_regression/
+│   │   ├── train_ridge.py
+│   │
+│   ├── lasso_regression/
+│   │   ├── train_lasso.py
+│   │
+│   ├── random_forest/
+│   │   ├── train_random_forest.py
+│   │
+│   ├── gradient_boosting/
+│       ├── train_gradient_boosting.py
+│
 ├── models/
+│   ├── linear_regression/
+│   │   ├── model.pkl
+│   │
+│   ├── ridge_regression/
+│   │   ├── model.pkl
+│   │
+│   ├── lasso_regression/
+│   │   ├── model.pkl
+│   │
+│   ├── random_forest/
+│   │   ├── model.pkl
+│   │
+│   ├── gradient_boosting/
+│       ├── model.pkl
+│
+├── results/
+│   │
+│   ├── linear_regression/
+│   │   ├── metrics_linear.md
+│   │
+│   ├── ridge_regression/
+│   │   ├── metrics_ridge.md
+│   │
+│   ├── lasso_regression/
+│   │   ├── metrics_lasso.md
+│   │
+│   ├── random_forest/
+│   │   ├── metrics_random_forest.md
+│   │   ├── feature_importance_top20.csv
+│   │
+│   ├── gradient_boosting/
+│   │   ├── metrics_gradient_boosting.md
+│   │   ├── feature_importance_top20.csv
+│   │
+│   ├── metrics_global.csv
 │
 ├── reports/
-│ ├── images/
-│ ├── data_quality.md
+│   ├── images/
+│   ├── 01_data_quality.md
+│   ├── 01.5_segundo_preprocesamiento.md
 │
 ├── README.md
 ├── .gitignore
