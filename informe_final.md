@@ -155,38 +155,201 @@ En síntesis:
 
 > ningún dataset es perfecto, se trata de ser suficientemente complejo y rico como para exigir un modelo que realmente comprenda la realidad que intenta predecir.
 
-## VI. Metodología (HASTA AQUI REVISE)
+## VI. Metodología
 
 El proyecto se alinea bajo los principios de la metodología **CRISP-DM**, o Cross-Industry Standard Process for Data Mining:
 1. **Business Understanding:** Definición del problema de tasación inconsistente.
 2. **Data Understanding:** Análisis exploratorio inicial (EDA) para identificar completitud, outliers y correlaciones.
 3. **Data Preparation:** Fuerte preprocesamiento, imputación, normalización y *encoding*.
-4. **Modeling:** Desarrollo paralelo de múltiples arquitecturas (Linear, Ridge, Lasso, Random Forest, Gradient Boosting).
+4. **Modeling:** Desarrollo paralelo de múltiples arquitecturas, las cuales se mencionaran mas adelante en el presente documento; sin spoilers por ahora.
 5. **Evaluation:** Contraste riguroso de métricas (R², MAE, RMSE).
 6. **Deployment:** Planteamiento de una arquitectura modular exportable y de fácil reproducción.
 
 La **planificación** estructuró el trabajo en fases progresivas documentadas en cuadernos tipo `.ipyne` en `notebooks` y un encapsulamiento posterior en código fuente en `src`.
 
-## VII. EDA y Visualización
+---
 
-El Análisis Exploratorio de Datos desveló el latir del mercado automotriz. 
+### VI.i Enfoque Metodológico
 
-### Estadísticas y Hallazgos
-- **Distribuciones asimétricas:** La variable objetivo `price` presentó un comportamiento sesgado, con una media artificialmente inflada por outliers extremos; en valores irrisorios como cientos de millones; frente a una mediana mucho más realista.
-- **Kilometraje y devaluación:** Como era esperable, se comprobó empíricamente el decaimiento del valor a medida que el `odometer` aumenta, aunque se detectaron outliers anómalos.
-- **Predominancia de marca:** Fabricantes como Ford, Chevrolet y Toyota dominan abrumadoramente la oferta.
-- **Correlación multidimensional:** La matriz de correlación indicó que el precio no obedece a un único factor aislado, sino a una constelación compleja de variables, justificando así la necesidad de modelos multivariados.
+La elección de CRISP-DM responde a su capacidad de estructurar proyectos de ciencia de datos de manera iterativa, trazable y alineada con objetivos reales.
 
-### Visualizaciones Clave (PONER FOTOS)
-El comportamiento de los datos se ilustra con claridad en los siguientes registros gráficos:
-- Distribución de fabricantes: `reports/images/Top_10_nueva_data.png`
-- Relación Precio vs Odómetro tras procesamiento: `reports/images/precio_vs_odometro_nueav_data.png`
-- Distribución de Años normalizada: `reports/images/distribucion_años_nueva_data.png`
-- Distribución de la variable objetivo Precio: `reports/images/distribucion_precios_nueva_data.png`
+En este proyecto, la metodología se adapta de forma natural al flujo de trabajo desarrollado:
 
-*Porque a veces lo esencial es invisible a los ojos, y las verdades de los datos solo se revelan mediante una adecuada proyección visual.*
+- La fase de **Business Understanding** permitió traducir una necesidad difusa —la estimación del precio de vehículos— en un problema concreto de regresión supervisada.
+- **Data Understanding** reveló la verdadera naturaleza del dataset: incompleto, ruidoso, pero profundamente representativo de la realidad.
+- **Data Preparation** se convirtió en una etapa crítica, donde las decisiones de limpieza, codificación y transformación definieron la calidad del aprendizaje posterior.
+- En **Modeling**, la exploración de múltiples técnicas permitió contrastar diferentes formas de aproximarse al problema, desde la linealidad hasta modelos no paramétricos.
+- La fase de **Evaluation** permitió validar empíricamente estas decisiones, alejándose de intuiciones y apoyándose en métricas objetivas.
+- Finalmente, **Deployment** se materializará como un sistema interactivo, amigable y completo, en el que un usuario estime el valor de un vehiculo con base en sus distintas características.
 
-## VIII. Preprocesamiento y Calidad
+---
+
+### VI.ii Fases del Proyecto
+
+El desarrollo del proyecto siguió las fases propuestas por CRISP-DM, adaptadas al contexto específico del problema:
+
+- **Comprensión del negocio o Business Understanding:**  
+  Definición del problema de tasación de vehículos y establecimiento de objetivos y métricas.
+
+- **Comprensión de los datos o Data Understanding:**  
+  Exploración inicial del dataset mediante análisis estadístico y visualizaciones, identificando patrones, valores atípicos y problemas de calidad.
+
+- **Preparación de los datos o Data Preparation:**  
+  Limpieza de datos, tratamiento de valores nulos, codificación de variables categóricas, o One-Hot Encoding y Target Encoding, y normalización de variables numéricas.
+
+- **Modelado o Modeling:**  
+  Implementación de múltiples técnicas de regresión, tanto lineales y no lineales, entrenadas sobre el mismo dataset procesado para asegurar comparabilidad.
+
+- **Evaluación o Evaluation:**  
+  Comparación de modelos mediante métricas estandarizadas, MAE, RMSE, R², MAPE como ya se ha mencionado, permitiendo seleccionar el modelo con mejor desempeño.
+
+- **Despliegue conceptual o Deployment:**  
+  Diseño de una arquitectura modular basada en scripts reproducibles y almacenamiento estructurado de modelos y resultados.
+
+Cada fase no se ejecutó de forma estrictamente lineal, sino iterativa, permitiendo volver atrás, ajustar decisiones y refinar el proceso en función de los hallazgos obtenidos.
+
+---
+
+### VI.iii Planificación
+
+La organización temporal del proyecto se estructuró en un período aproximado de tres meses, distribuyendo las fases de CRISP-DM de la siguiente manera:
+
+- **Business Understanding:** semana del 30 de marzo  
+- **Data Understanding:** semana del 6 de abril  
+- **Data Preparation:** semana del 13 de abril  
+- **Modeling y Evaluation:** semanas del 13 y 20 de abril  
+- **Deployment:** desde las primeras semanas de mayo  
+
+Esta planificación permitió avanzar de manera progresiva, consolidando cada etapa antes de transitar a la siguiente, pero manteniendo la flexibilidad necesaria para iterar cuando el proceso lo requiriera.
+
+En términos prácticos, el trabajo evolucionó desde la exploración en notebooks hacia la consolidación en scripts modulares, reflejando una transición desde el análisis hacia la ingeniería.
+
+> No fue una línea recta,  
+> sino un proceso de refinamiento continuo,  
+> donde cada fase dejó una huella en la que posar siguiente.
+
+## VII. Análisis Exploratorio de Datos y Visualización
+
+El Análisis Exploratorio de Datos es más que un trámite técnico, es un acto de contemplación. Aquí los datos dejan de ser columnas y comienzan a hablar en un lenguaje inintalegible a los ojos del común. Puede que lo que dicen no siempre es cómodo, sin embargo, siempre es revelador.
+
+---
+
+### VII.i Análisis Descriptivo
+
+El dataset original presenta una estructura heterogénea, compuesta por variables numéricas y categóricas que describen distintas dimensiones del mercado automotriz.
+
+En términos de completitud, emergen tres niveles claros:
+
+- Variables prácticamente completas  
+  `price`, `region`, `state`
+
+- Variables con baja ausencia de datos  
+  `year`, `manufacturer`, `model`, `odometer`, `fuel`, `transmission`
+
+- Variables con alta incompletitud  
+  `condition`, `cylinders`, `VIN`, `drive`, `paint_color`, `size`
+
+Destaca el caso extremo de `country`, completamente vacío, condenado a la inexistencia analítica.
+
+Los valores nulos no son solo un problema técnico, son huellas de un sistema imperfecto. Publicaciones incompletas, datos omitidos, silencios que deben ser interpretados o eliminados.
+
+---
+
+En cuanto a distribución:
+
+- `price` presenta una fuerte asimetría media inflada por valores extremos, la mediana representa mejor esta variable.
+
+- `odometer` evidencia valores irreales cercanos a diez millones.
+
+- `year` incluye registros improbables como 1900.
+
+Estos elementos confirman la existencia de ruido significativo y la necesidad de intervención.
+
+---
+
+### VII.ii Visualizaciones
+
+Las visualizaciones permiten ver lo que la sopa de números esconde.
+
+#### Distribución de precios
+
+![Distribución de precios](reports/images/distribucion_precios_nueva_data.png)
+
+Los precios se concentran en rangos moderados, mientras los extremos distorsionan la percepción global.
+
+---
+
+#### Precio vs Odómetro
+
+![Precio vs Odómetro](reports/images/precio_vs_odometro_nueav_data.png)
+
+La depreciación se manifiesta con claridad. A mayor uso, menor valor. Una ley casi natural, la ley de la selva.
+
+---
+
+#### Distribución de fabricantes
+
+![Top fabricantes](reports/images/Top_10_nueva_data.png)
+
+El mercado está dominado por unos pocos gigantes de la industria. Ford, Chevrolet y Toyota no solo venden más, también moldean el dataset.
+
+---
+
+#### Distribución de años
+
+![Distribución de años](reports/images/distribucion_años_nueva_data.png)
+
+Predominan vehículos modernos, aunque persisten vestigios del pasado que introducen ruido, aquellas joyitas del mundo automotriz.
+
+---
+
+### VII.iii Hallazgos e Interpretación
+
+El análisis revela una verdad fundamental:
+
+El calculo del precio de un vehículo no es lineal ni simple.
+
+Es el resultado de múltiples fuerzas interactuando al mismo tiempo.
+
+Se identifican patrones claros:
+
+- A mayor año, mayor valor  
+- A mayor kilometraje, menor precio  
+- Las marcas dominantes concentran la mayoría de registros  
+
+Pero también se evidencia algo más profundo:
+
+Ninguna variable por sí sola explica el precio. Es la suma de entes menores que en conjunto logran determinar un nuevo ser.
+
+La matriz de correlación lo sugiere y la realidad lo confirma. El valor de un vehículo emerge de una red compleja de relaciones.
+
+---
+
+Se identificaron además variables sin valor analítico:
+
+- `id`, `url`, `image_url`, `description`  
+- `VIN` como identificador único de alta cardinalidad  
+
+Estas variables no explican el fenómeno, solo lo acompañan.
+
+---
+Siendo así, el EDA permitió:
+
+- Comprender la estructura real del dataset  
+- Detectar ruido, outliers e inconsistencias  
+- Identificar variables relevantes  
+- Justificar decisiones de preprocesamiento  
+- Anticipar la necesidad de modelos no lineales  
+
+>Porque si algo quedó claro en esta fase es lo siguiente:
+>El problema no era solo predecir un precio; era entender un sistema  
+>Y ese sistema no cabe en una línea recta... 
+>late como un organismo complejo, cual entidad biomecanica carente de entendimiento exalante de humo,  
+>esperando ser interpretado  
+
+*Porque a veces lo esencial es invisible a los ojos*
+
+## VIII. Preprocesamiento y Calidad (HASTA AQUI REVISE)
 
 El conjunto de datos crudo presentaba un entorno hostil para cualquier algoritmo matemático, dado que presentaba cadenas de texto, variables que un algoritmo simplemente no podría entender... Se aplicó una reestructuración profunda documentada en `src/encode_dataset.py` y `02_preprocessing.ipynb`. Esta reestructuración transformó las variables categóricas en numéricas, además de aplicar normalización, entre otras.
 
