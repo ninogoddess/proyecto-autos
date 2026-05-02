@@ -212,11 +212,11 @@ proyecto-autos/
 ## 10. Reproducibilidad
 
 Para reproducir tanto los pasos como la obtención de datos simplemente ejecute los notebooks dentro de la carpeta `notebooks`de este repositorio, en el orden de sus nombres. Todo el código está dispuesto de modo tal que sea sencillamente replicable sin instalar nada extra o fuera de lo común.
-
+Luego, puede obtener el dataset procesado desde Kaagle ya se para descarga o uso libre, según las indicaciones del script `uso_dataset_celso_kaagle.py` o en el enlace https://www.kaggle.com/datasets/celsofariasaraya/vehicules-processed-celso.
+Posteriormente, se ejecutan los scripts dentro de la carperta `src`.
 
 ## 11. Próximos Pasos 
 
 Esto puede mutar conforme al avance del proyecto.
 
-- Modelado predictivo de regresión
-- Evaluación del modelo
+- Evaluación del modelo mediante sistema de usaje

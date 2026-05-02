@@ -173,7 +173,7 @@ La elección de CRISP-DM responde a su capacidad de estructurar proyectos de cie
 En este proyecto, la metodología se adapta de forma natural al flujo de trabajo desarrollado:
 
 - La fase de **Business Understanding** permitió traducir una necesidad difusa —la estimación del precio de vehículos— en un problema concreto de regresión supervisada.
-- **Data Understanding** reveló la verdadera naturaleza del dataset: incompleto, ruidoso, pero profundamente representativo de la realidad.
+- **Data Understanding** reveló la verdadera naturaleza del dataset: incompleto, ruidoso, y profundamente representativo de la realidad.
 - **Data Preparation** se convirtió en una etapa crítica, donde las decisiones de limpieza, codificación y transformación definieron la calidad del aprendizaje posterior.
 - En **Modeling**, la exploración de múltiples técnicas permitió contrastar diferentes formas de aproximarse al problema, desde la linealidad hasta modelos no paramétricos.
 - La fase de **Evaluation** permitió validar empíricamente estas decisiones, alejándose de intuiciones y apoyándose en métricas objetivas.
@@ -217,7 +217,7 @@ La organización temporal del proyecto se estructuró en un período aproximado 
 - **Modeling y Evaluation:** semanas del 13 y 20 de abril  
 - **Deployment:** desde las primeras semanas de mayo  
 
-Esta planificación permitió avanzar de manera progresiva, consolidando cada etapa antes de transitar a la siguiente, pero manteniendo la flexibilidad necesaria para iterar cuando el proceso lo requiriera.
+Esta planificación permitió avanzar de manera progresiva, consolidando cada etapa antes de transitar a la siguiente, manteniendo la flexibilidad necesaria para iterar cuando el proceso lo requiriera.
 
 En términos prácticos, el trabajo evolucionó desde la exploración en notebooks hacia la consolidación en scripts modulares, reflejando una transición desde el análisis hacia la ingeniería.
 
@@ -314,7 +314,7 @@ Se identifican patrones claros:
 - A mayor kilometraje, menor precio  
 - Las marcas dominantes concentran la mayoría de registros  
 
-Pero también se evidencia algo más profundo:
+Asimismo, se evidencia algo más profundo:
 
 Ninguna variable por sí sola explica el precio. Es la suma de entes menores que en conjunto logran determinar un nuevo ser.
 
@@ -346,14 +346,11 @@ Siendo así, el EDA permitió:
 
 *Porque a veces lo esencial es invisible a los ojos*
 
-## VIII. Preprocesamiento y Calidad (HASTA AQUI REVISE)
+## VIII. Preprocesamiento y Calidad 
+
+El preprocesamiento es un acto de depuración del mundo. Aquí los datos dejan de ser caóticos y comienzan a adquirir forma. Se eliminan ilusiones, se corrigen errores y se traduce la realidad a un lenguaje que el modelo pueda comprender.
 
 El conjunto de datos crudo presentaba un entorno hostil para cualquier algoritmo matemático, dado que presentaba cadenas de texto, variables que un algoritmo simplemente no podría entender... Se aplicó una reestructuración profunda ejecutada en `02_preprocessing.ipynb`y `encode_dataset.py`, posteriormente documentada en `01_data_quality.md` y `01.5_segundo preprocesamiento`. Esta reestructuración eliminó variables de desintéres, transformó variables categóricas en numéricas, además aplicó normalización, entre otras.
-
-
-## VIII. Preprocesamiento y Calidad de Datos
-
-El preprocesamiento no es solo una etapa técnica, es un acto de depuración del mundo. Aquí los datos dejan de ser caóticos y comienzan a adquirir forma. Se eliminan ilusiones, se corrigen errores y se traduce la realidad a un lenguaje que el modelo pueda comprender.
 
 ---
 
@@ -482,23 +479,23 @@ El dataset final contiene aproximadamente:
 Las visualizaciones posteriores, como el simil a un EDA aplicado a la data procesada, confirman que las transformaciones no alteraron las relaciones fundamentales:
 
 #### Distribución de precios  
-![Distribución precios](../reports/images/distribucion_precios_nueva_data.png)
+![Distribución precios](/reports/images/distribucion_precios_nueva_data.png)
 
 La distribución de los precios mantiene su forma general, aunque ahora representada en una escala normalizada. El proceso de Min-Max comprime la mayoría de los valores en un rango reducido, mientras extiende la cola de la distribución dentro del nuevo intervalo.
 
 ---
 
 #### Relación precio vs odómetro  
-![Precio vs odómetro](../reports/images/precio_vs_odometro_nueav_data.png)
+![Precio vs odómetro](/reports/images/precio_vs_odometro_nueav_data.png)
 
 La relación entre precio y kilometraje mantiene su patrón general incluso tras la normalización. Esto indica que el proceso de escalado no altera las relaciones subyacentes entre variables, sino únicamente su representación.
 
 ---
 
 #### Distribución de fabricantes  
-![Top fabricantes](../reports/images/Top_10_nueva_data.png)
+![Top fabricantes](/reports/images/Top_10_nueva_data.png)
 
-Como se aprecia, el dataset continúa siendo dominado por los tres colosos del mundo automotriz: Ford, Chevrolet y Toyota. No obstante, la cantidad de registros se reduce tras la limpieza aplicada, manteniendo las proporciones generales pero con menor volumen absoluto.
+Como se aprecia, el dataset continúa siendo dominado por los tres colosos del mundo automotriz: Ford, Chevrolet y Toyota. No obstante, la cantidad de registros se reduce tras la limpieza aplicada, manteniendo las proporciones generales, llegando a un menor volumen absoluto.
 
 ---
 
@@ -536,7 +533,7 @@ Modelo base que asume relaciones lineales entre variables.
 - Complejidad predicción: O(M)  
 - Costo computacional: Muy bajo  
 
-Precisa, rápida, pero rígida frente a lo no lineal.
+Precisa, rápida, y rígida frente a lo no lineal.
 
 ---
 
@@ -547,7 +544,7 @@ Extensión de la regresión lineal con regularización L2.
 - Complejidad predicción: O(M)  
 - Costo computacional: Muy bajo  
 
-Corrige excesos, pero no cambia la esencia del modelo.
+Corrige excesos, sin cambiar la esencia del modelo.
 
 ---
 
@@ -558,7 +555,7 @@ Regresión con penalización L1 que elimina variables irrelevantes.
 - Costo computacional: Moderado  
 
 Selecciona, reduce, simplifica.  
-Pero en esa poda puede perder señales valiosas.
+Considerando que en esa poda puede perder señales valiosas.
 
 ---
 
@@ -580,11 +577,11 @@ Modelo secuencial que aprende corrigiendo errores previos.
 - Complejidad entrenamiento: O(T × M × N × D)  
 - Costo computacional: Moderado-alto  
 
-Iterativo, refinado, pero dependiente de su configuración.
+Iterativo, refinado, dependiente de su configuración.
 
 ---
 
-### 9.2 Resultados Comparativos
+### IX.ii Resultados Comparativos
 
 | Modelo            | MAE        | RMSE       | R²         | MAPE      |
 |------------------|-----------|-----------|-----------|----------|
@@ -604,11 +601,10 @@ Los modelos lineales alcanzaron un R² similar cercano a 0.81.
 Suficiente para comprender la superficie del problema, insuficiente para capturar su profundidad.
 
 Desde el Lineal hasta Ridge no hubo una mejora considerable.  
-Lasso redujo dimensiones, pero no elevó el rendimiento.  
+Lasso redujo dimensiones, y aún así no elevó el rendimiento.  
 El modelo ya estaba estable desde su forma más simple.
 
-Gradient Boosting avanzó un poco más.  
-Pero su progreso fue contenido, como si caminara corrigiendo pasos sin ver el mapa completo.
+Gradient Boosting avanzó un poco más, a pesar de que su progreso fue contenido, como si caminara corrigiendo pasos sin ver el mapa completo.
 
 Y entonces apareció el bosque.
 
@@ -650,7 +646,7 @@ El modelo Random Forest fue seleccionado como solución final por su superiorida
 | **Random Forest** | **0.1017** | **0.2247** | **0.9497** | **52.14** | **O(n * trees * depth)** |
 
 ### Justificación de Selección
-El paradigma lineal ofreció un baseline digno de R² ~0.81, demostrando que una aproximación afín rescataba gran parte de la varianza. Sin embargo, su rigidez teórica falló ante la naturaleza fracturada de los precios. Gradient Boosting mejoró marginalmente las cosas, pero careció de la contundencia estructural necesaria. 
+El paradigma lineal ofreció un baseline digno de R² ~0.81, demostrando que una aproximación afín rescataba gran parte de la varianza. Sin embargo, su rigidez teórica falló ante la naturaleza fracturada de los precios. Gradient Boosting mejoró marginalmente las cosas, careciendo de la contundencia estructural necesaria. 
 
 El *bosque aleatorio* destrozó las barreras de desempeño. Abandonando la linealidad, este ensamble capturó las complejas interacciones locales de la tasación automotriz, llevando el R² a casi un 95%. La selección responde puramente al avasallador salto métrico, asumiendo su inherente costo computacional.
 
@@ -666,27 +662,54 @@ Definidos en `train_random_forest.py`:
 - `random_state=42`: Garantía de reproducibilidad estocástica.
 - `n_jobs=-1`: Aprovechamiento pleno del paralelismo en hardware, cual obreros de un sindicato.
 
+### Parámetros
+El modelo Random Forest no aprende parámetros en el sentido tradicional de coeficientes numéricos, como ocurre en modelos lineales. En su lugar, construye una gran cantidad de árboles de decisión, donde cada nodo representa una regla aprendida a partir de los datos.
+
+Siendo así, el número total de nodos en el bosque puede interpretarse como una medida de la complejidad del modelo, representando el conjunto de decisiones que este ha internalizado para aproximar la variable objetivo.
+
+#### Lista de Análogos a los Parámetros
+
+| Métrica | Valor |
+|--------|------|
+| Número de árboles | 100 |
+| Total de nodos | 22134188 |
+| Nodos promedio por árbol | 221341.88 |
+| Profundidad promedio | 50.53 |
+| Profundidad máxima | 59 |
+| Profundidad mínima | 47 |
+
+>El modelo no aprendió solo una regla… aprendió uns jungla de decisiones.
+
+Cien árboles se alzaron para interpretar la realidad, y en su interior se desplegaron más de veintidós millones de nodos, cada uno una bifurcación, una elección, un intento por capturar el pulso del precio.
+
+Con profundidades que superan las cincuenta capas, el bosque no se quedó en la superficie; descendió, capa tras capa, hasta descomponer el problema en sus más mínimas expresiones. Cada árbol, lejos de ser una simple estructura, se convirtió en un mapa denso de relaciones locales, donde el precio deja de ser una función global y pasa a ser el resultado de miles de caminos posibles.
+
+
 ### Justificación Técnica Profunda
 Un vehículo no deprecia su valor de forma puramente constante. Un automóvil clásico de 1960 puede valer mucho más que un sedán común de 2010; estas relaciones polinómicas y excepciones son invisibles para la Regresión Lineal o Lasso. Al permitir `max_depth=None`, el Random Forest desciende a la granularidad absoluta de los datos, ramificando el espacio multidimensional para aislar casuísticas complejas, previniendo el sobreajuste a través de la aleatorización de variables y datos, o Bagging.
 
 ## XI. Validación Experimental (INCLUIR MOCK UP DE VERCEL CON ANTIGRAVITY)
 
+### XI.i División de Datos
 - **Train/Test Split:** Se implementó una segmentación canónica, al igual que en las demas técnicas, del 80% para la fase de entrenamiento y construcción topológica de los árboles, en Train, reservando de forma estricta un 20% para la validación de su capacidad de generalización frente a datos jamás vistos, en Test.
 - **Estrategia:** La validación se ejecutó sin alteración cronológica o estratificada extrema, asumiendo que tras el filtro de limpieza inicial, el muestreo aleatorio (`random_state=42`) resultaba representativo del dominio analítico.
+### XI.ii Estrategia de Validación
+
+(MOCK UP DE VERCEL)
 
 ## XII. Evaluación e Interpretabilidad
 
-### Métricas Críticas
+### XII.i Métricas de Evaluación
 El desempeño del Random Forest arroja:
 - **MAE:** 0.1017
 - **RMSE:** 0.2247
 - **R²:** 0.9497
 - **MAPE:** 52.14%
 
-### Análisis Crítico e Interpretabilidad
+### XII.ii Análisis de Resultados
 Las métricas MAE y RMSE, evaluadas sobre el conjunto escalado, exhiben márgenes de error formidables, denotando que la curva de predicción abraza de cerca la realidad. El R² de 0.9497 implica que casi el 95% de la varianza en los precios queda explicada exclusivamente por las variables seleccionadas.
 
-### Importancia de Variables o Feature Importance
+### XII.iii Interpretabilidad del Modelo
 La caja negra del modelo se ilumina al estudiar las directrices que gobiernan sus decisiones, disponible en `results/random_forest/feature_importance_top20.csv`:
 1. **model_encoded (0.6028):** El modelo/versión aglutina casi un 60% del peso en la decisión.
 2. **year (0.2141):** La antigüedad explica un 21% de la depreciación.
@@ -698,21 +721,150 @@ Estas variables reinan en el bosque, siendo los señores de la colina, mientras 
 
 El proyecto fue estructurado bajo una **arquitectura modular** que propicia la mantenibilidad y la inyección de nuevas características sin causar una refactorización severa.
 
-### Flujo Completo del Sistema
+### XIII.i Arquitectura del Sistema - Flujo Completo del Sistema
+
 1. **Ingesta:** Datos crudos desde Kaggle reposan en `data/raw`.
 2. **Transformación:** Procesamiento estadístico y *encoding* centralizado vía cuadernos de Jupyter y `src/encode_dataset.py`, empujando la data curada a `data/processed`.
 3. **Modelamiento Aislado:** Los subdirectorios en `src/` tales como `linear_regression/`, `random_forest/`, y los demás, hospedan scripts de entrenamiento autocontenidos.
 4. **Persistencia:** Artefactos entrenados son serializados en .pkl a `models/`, mientras que sus registros técnicos alimentan `results/`.
 
-A modo de reproducibilidad se debe:
+### XIII.ii Pipeline del Modelo (HASTA AQUI)
 
-1. Ejecutar los notebooks de la carpeta `notebooks` en el orden presente en sus nombres; ya sea en Jupyter, VSC o Colab, instalando previamente losn requerimeitnos presentes en `requeriments.txt`.
-2. Ejecutar `encode_dataset.py` presente en la carpeta `src`para terminar el preprocesamiento del dataset.
-3. Ejecutar cada uno de los scripts de tipo `train`presentes en las subcarpetas de la carpeta `src`, sin un orden en específico, esto generará los resultados en `.md` y `.csv`.
+El recorrido de los datos en este proyecto es un tránsito. Desde el caos crudo hasta la estructura que permite predecir.
+
+A continuación, se describe paso a paso este flujo, tanto en instrucciones de reproducibilidad como en explicación de lo que se hizo.
+
+---
+
+#### 1. Obtención de los datos
+
+El proceso inicia con la adquisición del dataset original desde Kaggle mediante `notebooks/00_obtencion_data.ipynb`.
+
+- Dataset crudo descargado y cargado en psterior entorno de trabajo  
+- Fuente no estructurada, con ruido, valores faltantes y errores propios de datos reales  
+
+Aquí nacen los datos, sin forma, sin intención… solo registros.
+
+---
+
+### 2. Análisis Exploratorio de Datos
+
+Se ejecuta el notebook `notebooks/01_EDA_primer_avance_CD_autos.ipynb` con el dataset crudo ya cargado.
+
+En esta etapa se:
+
+- Analizan distribuciones
+- Identifican outliers
+- Detectan valores nulos
+- Observan relaciones entre variables
+
+El objetivo no es modelar, es comprender.
+
+> Antes de predecir, hay que mirar. Pare, mire y escuche.
+
+---
+
+### 3. Limpieza y Preprocesamiento inicial
+
+Se ejecuta `notebooks/02_preprocesamiento.ipynb`.
+
+Aquí los datos comienzan a tomar forma:
+
+- Eliminación de columnas irrelevantes  
+- Filtrado de valores inconsistentes  
+- Tratamiento de valores nulos  
+- Primeras transformaciones  
+
+Resultado:
+
+- Dataset procesado intermedio  
+- Guardado en `data/processed/`, no disponible para obtención; sí para repreducción. 
+
+---
+
+### 4. Codificación y transformación final
+
+Dado que aun faltaba limpieza, se ejecuta: `src/encode_dataset.py`.
+
+Esta etapa convierte los datos en lenguaje matemático completo:
+
+- One-Hot Encoding para variables categóricas  
+- Target Encoding para `model`  
+- Normalización de variables numéricas  
+- Eliminación de valores no numéricos  
+
+Resultado:
+
+- Dataset final completamente numérico  
+- Listo para ser consumido por modelos  
+- Base común para todo el entrenamiento  
+- Guardado en `data/processed/`, disponible para obtención desde kaagle; ya sea por enlace o por uso mediante `notebooks/uso_dataset_celso_kaagle.ipynb`. 
+
+---
+
+### 5. Entrenamiento de modelos
+
+Se ejecutan los scripts en `src/<tecnica>/train_*.py`
+
+Sin orden estricto, cada modelo aprende de forma independiente:
+
+- Regresión Lineal  
+- Ridge  
+- Lasso  
+- Random Forest  
+- Gradient Boosting  
+
+Cada script:
+
+- Entrena el modelo  
+- Calcula métricas  
+- Guarda resultados en `results/<técnica>/../`.
+
+---
+
+### 6. Generación de resultados
+
+Los outputs se almacenan en `results/<técnica>/../`.
+
+Incluyen:
+
+- Métricas en `.md`  
+- Importancia de variables en `.csv`  
+- Comparación global en `metrics_global.csv`  
+
+Mientras que los modelos se almacenan en `models/<tecnica>/model.pkl`.
+
+---
+
+### 7. Análisis y comparación
+
+Con los resultados generados:
+
+- Se comparan métricas entre modelos  
+- Se evalúa desempeño  
+- Se identifica el modelo ganador  
+
+Aquí ocurre la síntesis.
+
+> Los datos hablaron.  
+> Los modelos respondieron.  
+> Y entre ambos… emergió una verdad aproximada.
+
+---
+
+### 8. Resultado final
+
+Un modelo entrenado, evaluado y comprendido:
+
+- Dataset limpio y estructurado  
+- Pipeline reproducible  
+- Arquitectura modular  
+- Modelo Random Forest como solución final  
 
 ## XIV. Repositorio ZXXXXXXXXXXXXXXXXXXXXXXXXXX
 
-### Estructura
+### XIV.i Estructura
+
 El esqueleto del proyecto fomenta el orden cognitivo y funcional:
 - `/data`: Segregación entre `raw/` y `processed/`.
 - `/notebooks`: Narrativa experimental interactiva.
@@ -721,25 +873,234 @@ El esqueleto del proyecto fomenta el orden cognitivo y funcional:
 - `/results` & `/reports`: Documentación auto-generada y bitácora del proyecto.
 
 De este modo, las vertebras son la estructura del proyecto, y la medula espinal es el flujo que recorre a traves de ellas, el pipeline.
+#### Estructura, imagen y enlace
 
-### Reproducibilidad y Uso
-Todo el ciclo de obtención, manipulación e iteración predictiva es de réplica directa. La ejecución secuencial de los notebooks reconstruye el estado fundamental. Por limitación de tamaño, la matriz procesada (`vehicles_processed_nums.csv`) reside externamente, estando exiliada del repositorio principal vía `.gitignore`, previniendo fatigas en el control de versiones.
+**Estructura hasta este punto:**
 
-## XV. Mejoras y Limitaciones
+```text
+proyecto-autos/
+│
+├── data/
+│   ├── raw/
+│   │   ├── datos_crudos_ejemplos.csv
+│   │
+│   ├── processed/
+│   │   ├── datos_procesados_ejemplos.csv
+│   │   ├── vehicles_processed.csv 
+│   │   ├── vehicles_processed_nums.csv //no está en github dado el tamaño
+│   │   ├── model_encoding_map.csv
+│
+├── notebooks/
+│   ├── 00_obtencion_data.ipynb
+│   ├── 01_EDA_primer_avance_CD_autos.ipynb
+│   ├── 02_preprocessing.ipynb
+│   ├── uso_dataset_celso_kaagle.yynb
+│
+├── src/
+│   │
+│   ├── encode_dataset.py
+│   │
+│   ├── linear_regression/
+│   │   ├── train_linear_regression.py
+│   │
+│   ├── ridge_regression/
+│   │   ├── train_ridge.py
+│   │
+│   ├── lasso_regression/
+│   │   ├── train_lasso.py
+│   │
+│   ├── random_forest/
+│   │   ├── train_random_forest.py
+│   │
+│   ├── gradient_boosting/
+│       ├── train_gradient_boosting.py
+│
+├── models/
+│   ├── linear_regression/
+│   │   ├── model.pkl
+│   │
+│   ├── ridge_regression/
+│   │   ├── model.pkl
+│   │
+│   ├── lasso_regression/
+│   │   ├── model.pkl
+│   │
+│   ├── random_forest/
+│   │   ├── model.pkl
+│   │
+│   ├── gradient_boosting/
+│       ├── model.pkl
+│
+├── results/
+│   │
+│   ├── linear_regression/
+│   │   ├── metrics_linear.md
+│   │
+│   ├── ridge_regression/
+│   │   ├── metrics_ridge.md
+│   │
+│   ├── lasso_regression/
+│   │   ├── metrics_lasso.md
+│   │
+│   ├── random_forest/
+│   │   ├── metrics_random_forest.md
+│   │   ├── feature_importance_top20.csv
+│   │
+│   ├── gradient_boosting/
+│   │   ├── metrics_gradient_boosting.md
+│   │   ├── feature_importance_top20.csv
+│   │
+│   ├── metrics_global.csv
+│
+├── reports/
+│   ├── images/
+│   ├── 01_data_quality.md
+│   ├── 01.5_segundo_preprocesamiento.md
+│
+├── README.md
+├── .gitignore
+```
 
-El proyecto es poderoso, pero no está exento del roce con la realidad:
-- **Limitaciones por Dataset:** Los datos provienen de extracciones automatizadas sin una estricta taxonomía, inyectando ruido e inconsistencias que las purgas estadísticas intentan apaciguar, pero no eliminan en su totalidad.
-- **Falta de datos en Chile:** La contextualidad geográfica condena a este algoritmo a ser un oráculo extranjero. Sin datos específicos del mercado automotriz local chileno (con sus propios impuestos, preferencias e inflaciones), la aplicación territorial directa es falaz.
-- **Peso de modelos (Random Forest):** La lucidez del Random Forest exige un tributo físico. Frente a los escasos Kilobytes de una regresión lineal, el ensamble genera un artefacto cercano a 1.50 GB, complicando drásticamente su despliegue en infraestructuras ligeras o *Edge Computing*.
-- **Generalización:** El sesgo en el volumen representativo de fabricantes (Ford, Chevrolet, Toyota) fuerza al modelo a especializarse en el *mainstream*, dejando en vulnerabilidad estadística a vehículos de nicho.
+**Imagen:** 
+![Imagen Repositorio](/reports/images/Imagen_repositorio.png)
+**Enlace:** https://github.com/ninogoddess/proyecto-autos/tree/main
+
+### XIV.ii README 
+
+Las palabras que se repiten son simpre las que sobran. Puede revisarse el README completo del proyecto en el repositorio de Github en la raís del proyecto. 
+
+### XIV.iii Reproducibilidad y Uso
+
+A modo de reproducibilidad se debe:
+
+1. Ejecutar los notebooks de la carpeta `notebooks` en el orden presente en sus nombres; ya sea en Jupyter, VSC o Colab, instalando previamente los requerimientos presentes en `requeriments.txt`.
+2. Ejecutar `encode_dataset.py` presente en la carpeta `src`para terminar el preprocesamiento del dataset.
+3. Ejecutar cada uno de los scripts de tipo `train`presentes en las subcarpetas de la carpeta `src`, sin un orden en específico, esto generará los resultados en `.md` y `.csv`.
+
+
+Todo el ciclo de obtención, manipulación e iteración predictiva es de réplica directa. La ejecución secuencial de los notebooks reconstruye el estado fundamental. Por limitación de tamaño, la matriz procesada `vehicles_processed_nums.csv` reside externamente en Kaagle, estando exiliada del repositorio y con las instrucciones de obtención en el script y uso `uso_dataset_celso_kaagle.py`, previniendo fatigas en el control de versiones.
+
+**Enlace dataset procesado:** https://www.kaggle.com/datasets/celsofariasaraya/vehicules-processed-celso
+
+## XV. Mejoras y Limitaciones (HASTA AQUI)
+
+El proyecto es poderoso y no está exento del roce con la realidad:
+Todo modelo es una aproximación. Una interpretación parcial de una realidad que nunca se deja capturar por completo.
+Este proyecto no es la excepción.
+
+---
+
+### XV.i Limitaciones del Proyecto
+
+El primer límite nace en el origen mismo de los datos.
+
+El dataset proviene de publicaciones reales en plataformas abiertas, sin control estricto de calidad.  
+Esto introduce ruido, errores humanos, inconsistencias y registros incompletos.  
+Por más rigurosas que sean las técnicas de limpieza, siempre queda un residuo de incertidumbre.
+
+La presencia de valores nulos obligó a tomar decisiones: eliminar o imputar.  
+Ambos caminos implican renuncias.  
+Imputar categorías como "unknown" preserva estructura, a costa de diluir significado.
+
+Los outliers, especialmente en precio y kilometraje, evidencian otra tensión.  
+Filtrar demasiado puede eliminar casos válidos.  
+Filtrar poco puede distorsionar la realidad.
+
+La representatividad del dataset tampoco es uniforme.  
+Marcas como Ford, Chevrolet y Toyota dominan el espacio.  
+El modelo aprende bien lo frecuente… y queda en duda ante lo raro.  
+Los nichos quedan en la penumbra estadística.
+
+Existe además una limitación estructural más profunda:
+
+El modelo fue entrenado con datos del mercado estadounidense.  
+Su aplicación directa en Chile o Latinoamérica es, en rigor, una extrapolación.  
+Factores como impuestos, oferta local, cultura de consumo y condiciones económicas no están representados.
+
+A esto se suma la exclusión de variables no estructuradas como `description`.  
+Allí habita información rica, e inaccesible bajo el enfoque actual.  
+Se pierde contexto, se pierde matiz.
+
+Finalmente, el propio modelo ganador impone su límite físico.
+
+Random Forest alcanza un alto nivel de desempeño, a un costo considerable:  
+un modelo de aproximadamente 1.5 GB.
+
+> Comprender mejor… también pesa más.
+
+Esto dificulta su despliegue en entornos reales, especialmente en sistemas ligeros o aplicaciones en tiempo real.
+
+---
+
+### XV.ii Propuestas de Mejora
+
+Las limitaciones no son fallas en sí mismas, son direcciones; bifurcaciones en el sendero.
+
+La primera mejora natural es la incorporación de datos locales.  
+Construir o recolectar un dataset del mercado chileno permitiría al modelo dejar de ser un intérprete extranjero y comenzar a hablar desde el contexto real donde se aplicará, tales como marketplace de Faceebook, Yapo.cl y ChileAutos.cl; mediante métodos de Scrap, por ejemplo.
+
+Otra línea de avance es el enriquecimiento del dataset.
+
+- Incorporar variables externas como indicadores económicos  
+- Integrar datos históricos de precios  
+- Explorar variables no estructuradas mediante técnicas de procesamiento de lenguaje natural  
+
+Ahí donde hoy hay silencio… podría haber una señal.
+
+En términos de modelamiento, se abre la posibilidad de optimización:
+
+- Ajuste fino de hiperparámetros  
+- Reducción de complejidad del Random Forest  
+- Exploración de modelos más eficientes como LightGBM o XGBoost  
+
+Buscar no solo precisión, sino equilibrio entre desempeño y costo.
+
+También es posible mejorar la calidad del preprocesamiento:
+
+- Estrategias más sofisticadas de imputación  
+- Detección más robusta de outliers  
+- Selección de variables basada en importancia estadística  
+
+Y finalmente, avanzar hacia la aplicación real.
+
+- Desarrollo de una interfaz funcional  
+- Implementación de un pipeline automatizado  
+
+---
+
+El proyecto logra lo que se propuso:  
+modelar, comparar, entender.
+
+Y deja abiertas preguntas más profundas.
+
+> Porque en ciencia de datos,  
+> llegar a una respuesta…  
+> es solo el inicio de la siguiente incógnita.
 
 ## XVI. Conclusiones
 
-Este proyecto ilustra el vertiginoso tránsito desde el caos de datos desestructurados hasta la certidumbre de un modelo predictivo altamente calibrado. Iniciando con un mapeo lineal, se comprobó que la depreciación vehicular es un fenómeno interrelacionado y fragmentado, cuya verdad solo pudo ser descifrada por la profundidad fractal de un Random Forest.
+## XVI. Conclusiones
 
-Se cumplieron a cabalidad los requisitos operacionales: preprocesamiento exhaustivo, modularización arquitectónica y obtención de métricas sobresalientes; como en el caso de R² ~0.95 del modelo random forest. A pesar de los ecos del sobrepeso computacional del modelo y la geolocalización ajena de los datos, el flujo conceptual construido sienta bases indiscutibles para una eventual tasación automatizada de clase empresarial. 
+Este proyecto encarna un tránsito técnico y filosófico: desde el desorden inherente de datos crudos, incompletos y contradictorios, hacia la construcción de una estructura capaz de inferir valor con notable precisión.
 
-A veces, para entender verdaderamente el valor de algo en este mundo, debemos dejar que cientos de árboles dialoguen sobre ello, echando raices en lo profundo del conocimiento colectivo, dando los frutos del entendimiento.
+En un inicio, la realidad parecía dócil, susceptible de ser capturada por modelos lineales. Y en efecto, estos ofrecieron una primera aproximación sólida, explicando más del 80 por ciento de la variabilidad del precio. Sin embargo, aquella aparente claridad no era más que una sombra proyectada sobre una superficie mucho más compleja. La tasación vehicular no es una línea, es una red de relaciones, una interacción constante entre variables que rara vez actúan de forma aislada.
+
+Fue entonces cuando el modelo Random Forest emergió no como una alternativa, sino como una necesidad. Su capacidad para capturar no linealidades y decisiones locales permitió alcanzar un coeficiente de determinación cercano a 0.95, revelando con crudeza que el fenómeno estudiado exige profundidad, no simplificación. No se trataba de ajustar una recta, sino de escuchar un bosque completo y todos los sonidos que genera.
+
+Desde una perspectiva metodológica, el proyecto cumplió de manera consistente con los lineamientos establecidos. Se desarrolló un proceso riguroso de preprocesamiento, se estructuró una arquitectura modular y reproducible, y se implementó una comparación objetiva entre múltiples técnicas de modelado. Cada etapa se articuló bajo una lógica coherente, alineada con los principos de CRISP-DM, permitiendo trazabilidad, orden y sentido en cada decisión tomada.
+
+Asimismo, se consolidó un pipeline completo, desde la obtención y análisis de datos hasta la generación de modelos y métricas, demostrando no solo capacidad analítica, sino también madurez en términos de ingeniería de datos y organización del proyecto.
+
+No obstante, los resultados no deben ser interpretados sin contexto. El modelo, aunque preciso, se construye sobre datos que no pertenecen al entorno en el que se pretende aplicar. Existe una brecha entre la realidad modelada y la realidad objetivo. Además, el costo computacional del modelo seleccionado introduce desafíos prácticos para su implementación en escenarios reales.
+
+Aun así, el valor del proyecto no reside únicamente en su capacidad predictiva, sino en el conocimiento construido a lo largo del proceso. Se comprendió la importancia de la calidad de los datos, la influencia de las decisiones de preprocesamiento, y la necesidad de elegir modelos en función no solo de su desempeño, sino también de su contexto de aplicación.
+
+En última instancia, este trabajo no responde únicamente a cuánto vale un vehículo.
+Responde a cómo entendemos el valor en sistemas complejos.
+Y a veces, para acercarnos a esa respuesta, no basta con mirar una ecuación.
+Es necesario adentrarse en el bosque, y dejar que cada árbol diga algo.
+
+Los objetivos propuestos, a excepción del despliegue de un sistema dee interacción, se an cumplido, como se ha expuesto en todo este documento.
 
 ## XVII. Referencias (APA 7)
 
@@ -747,3 +1108,14 @@ A veces, para entender verdaderamente el valor de algo en este mundo, debemos de
 - Scikit-learn Developers. (2023). *Scikit-learn: Machine Learning in Python* (Versión 1.3) [Software]. https://scikit-learn.org/
 - McKinney, W. (2010). Data Structures for Statistical Computing in Python. En *Proceedings of the 9th Python in Science Conference* (pp. 51-56).
 - Farías, C. (2026). *Proyecto de Regresión de Precios de Vehículos* [Repositorio de código y reportes internos]. Universidad Andrés Bello, sede Viña del Mar.
+
+
+XXXXXXXXXXXXXXXXXXXXXXXXXXX
+
+- Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., ... & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12, 2825–2830.
+
+- Kaggle. (2024). Vehicle dataset. https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data
+
+- Chapman, P., Clinton, J., Kerber, R., Khabaza, T., Reinartz, T., Shearer, C., & Wirth, R. (2000). CRISP-DM 1.0: Step-by-step data mining guide.
+
+- James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). An introduction to statistical learning (2nd ed.). Springer.
