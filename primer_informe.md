@@ -688,7 +688,14 @@ Con profundidades que superan las cincuenta capas, el bosque no se quedó en la 
 ### Justificación Técnica Profunda
 Un vehículo no deprecia su valor de forma puramente constante. Un automóvil clásico de 1960 puede valer mucho más que un sedán común de 2010; estas relaciones polinómicas y excepciones son invisibles para la Regresión Lineal o Lasso. Al permitir `max_depth=None`, el Random Forest desciende a la granularidad absoluta de los datos, ramificando el espacio multidimensional para aislar casuísticas complejas, previniendo el sobreajuste a través de la aleatorización de variables y datos, o Bagging.
 
-## XI. Validación Experimental (INCLUIR MOCK UP DE VERCEL CON ANTIGRAVITY)
+## XI. Validación Experimental 
+
+Se desarrolló un MOCKUP FUNCIONAL NO FUNCIONAL para la validación del proyecto. Esto se refiere a que el sistema es meramente demostrativo y expositivo, es una idea, un concepto de loq eu se desea lograr en las próximas etapas del proyecto; este sistema NO ESTÁ CONECTADO AL MODELO RANDOM FOREST GENERADO NI ESTÁ CALCULANDO VERDADERAMENTE LOS PRECIOS, es meramente demostrativo, nuevamente.
+
+Puede revisarse su codigo fuente en la carpeta `app-mockup-autos-celso` así como revisarse en el enlace: https://proyecto-autos-mockup.vercel.app/ , dado que se desplegó en líne mediante Vercel.
+
+**Imagen del sistema:** 
+![Imagen del Mockup](/reports/images/Imagen_mockup.png)
 
 ### XI.i División de Datos
 - **Train/Test Split:** Se implementó una segmentación canónica, al igual que en las demas técnicas, del 80% para la fase de entrenamiento y construcción topológica de los árboles, en Train, reservando de forma estricta un 20% para la validación de su capacidad de generalización frente a datos jamás vistos, en Test.
@@ -861,7 +868,7 @@ Un modelo entrenado, evaluado y comprendido:
 - Arquitectura modular  
 - Modelo Random Forest como solución final  
 
-## XIV. Repositorio ZXXXXXXXXXXXXXXXXXXXXXXXXXX
+## XIV. Repositorio 
 
 ### XIV.i Estructura
 
@@ -879,6 +886,8 @@ De este modo, las vertebras son la estructura del proyecto, y la medula espinal 
 
 ```text
 proyecto-autos/
+│
+├──app-mockup-autos-celso //todo el proyecto mockup
 │
 ├── data/
 │   ├── raw/
