@@ -702,7 +702,7 @@ Puede revisarse su codigo fuente en la carpeta `app-mockup-autos-celso` así com
 - **Estrategia:** La validación se ejecutó sin alteración cronológica o estratificada extrema, asumiendo que tras el filtro de limpieza inicial, el muestreo aleatorio (`random_state=42`) resultaba representativo del dominio analítico.
 ### XI.ii Estrategia de Validación
 
-(MOCK UP DE VERCEL)
+El sistema de estimación de precios del mockup opera mediante un algoritmo heurístico que establece un precio base de 3.000.000 CLP y aplica penalizaciones y bonificaciones sucesivas según las características del vehículo. En primer lugar, la antigüedad se valora positivamente desde el año 2000, sumando un valor fijo 180.000 CLP por cada año más reciente, mientras que el desgaste se penaliza restando una proporción directa 8 CLP por cada kilómetro recorrido. A continuación, se aplica un ajuste predefinido basado en el prestigio o la retención de valor en el mercado de la marca seleccionada; por ejemplo, Toyota añade una bonificación mayor que Chevrolet. Finalmente, para simular la volatilidad natural del mercado, el algoritmo introduce un factor de variación aleatoria de ±5% sobre el subtotal, garantizando siempre mediante un límite de seguridad que el vehículo nunca se tase por debajo de un valor residual mínimo de 500.000 CLP.
 
 ## XII. Evaluación e Interpretabilidad
 
