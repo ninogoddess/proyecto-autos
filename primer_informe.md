@@ -109,7 +109,7 @@ Desde una perspectiva de tipos de datos:
 
 ---
 
-## 5.2 Fuente de los Datos
+## V.ii Fuente de los Datos
 
 El dataset fue obtenido desde la plataforma Kaagle, una de las principales fuentes de datasets abiertos en el ámbito de la ciencia de datos.
 
@@ -122,7 +122,7 @@ Esta procedencia otorga al dataset un carácter empírico y aplicado, alejándol
 
 ---
 
-## 5.3 Justificación del Dataset
+## V.iii Justificación del Dataset
 
 La elección de este dataset responde a múltiples criterios de pertinencia técnica y relevancia práctica.
 
@@ -1113,13 +1113,10 @@ Los objetivos propuestos, a excepción del despliegue de un sistema dee interacc
 
 ## XVII. Referencias (APA 7)
 
-- Reese, A. (2021). *Craigslist Cars and Trucks Data* [Conjunto de datos]. Kaggle. https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data
+
 - Scikit-learn Developers. (2023). *Scikit-learn: Machine Learning in Python* (Versión 1.3) [Software]. https://scikit-learn.org/
-- McKinney, W. (2010). Data Structures for Statistical Computing in Python. En *Proceedings of the 9th Python in Science Conference* (pp. 51-56).
+
 - Farías, C. (2026). *Proyecto de Regresión de Precios de Vehículos* [Repositorio de código y reportes internos]. Universidad Andrés Bello, sede Viña del Mar.
-
-
-XXXXXXXXXXXXXXXXXXXXXXXXXXX
 
 - Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., ... & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12, 2825–2830.
 
