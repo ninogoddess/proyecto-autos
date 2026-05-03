@@ -735,7 +735,7 @@ El proyecto fue estructurado bajo una **arquitectura modular** que propicia la m
 3. **Modelamiento Aislado:** Los subdirectorios en `src/` tales como `linear_regression/`, `random_forest/`, y los demás, hospedan scripts de entrenamiento autocontenidos.
 4. **Persistencia:** Artefactos entrenados son serializados en .pkl a `models/`, mientras que sus registros técnicos alimentan `results/`.
 
-### XIII.ii Pipeline del Modelo (HASTA AQUI)
+### XIII.ii Pipeline del Modelo 
 
 El recorrido de los datos en este proyecto es un tránsito. Desde el caos crudo hasta la estructura que permite predecir.
 
@@ -991,7 +991,7 @@ Todo el ciclo de obtención, manipulación e iteración predictiva es de réplic
 
 **Enlace dataset procesado:** https://www.kaggle.com/datasets/celsofariasaraya/vehicules-processed-celso
 
-## XV. Mejoras y Limitaciones (HASTA AQUI)
+## XV. Mejoras y Limitaciones 
 
 El proyecto es poderoso y no está exento del roce con la realidad:
 Todo modelo es una aproximación. Una interpretación parcial de una realidad que nunca se deja capturar por completo.
@@ -1121,7 +1121,7 @@ Los objetivos propuestos, a excepción del despliegue de un sistema dee interacc
 - Pedregosa, F., Varoquaux, G., Gramfort, A., Michel, V., Thirion, B., Grisel, O., ... & Duchesnay, É. (2011). Scikit-learn: Machine learning in Python. Journal of Machine Learning Research, 12, 2825–2830.
 
 - Kaggle. (2024). Vehicle dataset. https://www.kaggle.com/datasets/austinreese/craigslist-carstrucks-data
-
+ 
 - Chapman, P., Clinton, J., Kerber, R., Khabaza, T., Reinartz, T., Shearer, C., & Wirth, R. (2000). CRISP-DM 1.0: Step-by-step data mining guide.
 
 - James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). An introduction to statistical learning (2nd ed.). Springer.
