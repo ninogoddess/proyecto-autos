@@ -889,6 +889,8 @@ proyecto-autos/
 │
 ├──app-mockup-autos-celso //todo el proyecto mockup
 │
+├──entregas //documentos enviados
+|
 ├── data/
 │   ├── raw/
 │   │   ├── datos_crudos_ejemplos.csv
