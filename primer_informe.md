@@ -1090,8 +1090,6 @@ Y deja abiertas preguntas más profundas.
 
 ## XVI. Conclusiones
 
-## XVI. Conclusiones
-
 Este proyecto encarna un tránsito técnico y filosófico: desde el desorden inherente de datos crudos, incompletos y contradictorios, hacia la construcción de una estructura capaz de inferir valor con notable precisión.
 
 En un inicio, la realidad parecía dócil, susceptible de ser capturada por modelos lineales. Y en efecto, estos ofrecieron una primera aproximación sólida, explicando más del 80 por ciento de la variabilidad del precio. Sin embargo, aquella aparente claridad no era más que una sombra proyectada sobre una superficie mucho más compleja. La tasación vehicular no es una línea, es una red de relaciones, una interacción constante entre variables que rara vez actúan de forma aislada.
