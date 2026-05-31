@@ -344,7 +344,7 @@ Siendo así, el EDA permitió:
 >late como un organismo complejo, cual entidad biomecanica carente de entendimiento exalante de humo,  
 >esperando ser interpretado  
 
-*Porque a veces lo esencial es invisible a los ojos*
+*Porque a veces lo esencial es invisible a los ojos (Saint-Exupéry, 1943)*
 
 ## VIII. Preprocesamiento y Calidad 
 
@@ -1125,3 +1125,4 @@ Los objetivos propuestos, a excepción del despliegue de un sistema dee interacc
 - Chapman, P., Clinton, J., Kerber, R., Khabaza, T., Reinartz, T., Shearer, C., & Wirth, R. (2000). CRISP-DM 1.0: Step-by-step data mining guide.
 
 - James, G., Witten, D., Hastie, T., & Tibshirani, R. (2021). An introduction to statistical learning (2nd ed.). Springer.
+- Saint-Exupéry, A. de. (1943). El principito. Editorial Salamandra.

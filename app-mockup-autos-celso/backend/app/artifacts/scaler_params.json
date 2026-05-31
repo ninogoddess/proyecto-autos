@@ -1,0 +1,30 @@
+{
+  "columns": [
+    "price",
+    "year",
+    "cylinders",
+    "odometer",
+    "lat",
+    "long",
+    "model_encoded"
+  ],
+  "mean": {
+    "price": 0.18640556165842748,
+    "year": 0.7619682748169911,
+    "cylinders": 3.497710390906777,
+    "odometer": 0.307913441442566,
+    "lat": 38.16898931890636,
+    "long": -93.28958339036622,
+    "model_encoded": 0.18640556165842742
+  },
+  "scale": {
+    "price": 0.14222820419510274,
+    "year": 0.14981301480363501,
+    "cylinders": 3.159567537331461,
+    "odometer": 0.20413371076491207,
+    "lat": 6.901800193197676,
+    "long": 20.1159891607744,
+    "model_encoded": 0.11438674103374184
+  },
+  "description": "Parámetros del StandardScaler aplicado durante el preprocesamiento. Para escalar un valor: (valor - mean) / scale. Para desescalar: valor * scale + mean."
+}
