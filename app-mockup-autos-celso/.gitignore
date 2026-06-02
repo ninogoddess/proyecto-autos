@@ -1,18 +1,39 @@
-# Logs
-logs
-*.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
-lerna-debug.log*
-
+# ── Node / Frontend ─────────────────────────────────────────
 node_modules
 dist
 dist-ssr
 *.local
 
-# Editor directories and files
+# ── Variables de entorno (NUNCA commitear con valores reales) ─
+.env
+.env.local
+.env.*.local
+# .env.production se commitea solo con placeholders (sin secretos reales)
+
+# ── Python / Backend ─────────────────────────────────────────
+backend/__pycache__/
+backend/**/__pycache__/
+backend/**/*.pyc
+backend/**/*.pyo
+backend/.env
+backend/venv/
+backend/servidor-autos/
+*.pyc
+*.pyo
+__pycache__/
+
+# ── Assets (NO ignorar — son archivos del proyecto) ──────────
+# public/assets/burnice_logo.png → debe estar en el repo
+
+# ── Logs ─────────────────────────────────────────────────────
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# ── Editores ─────────────────────────────────────────────────
 .vscode/*
 !.vscode/extensions.json
 .idea

@@ -25,8 +25,8 @@ Para inferencia replicamos:
 """
 
 import logging
+import re
 import numpy as np
-import pandas as pd
 from typing import Optional
 
 from ..schemas.vehicle import VehicleInput
@@ -219,7 +219,6 @@ def _parse_cylinders(cylinders_str: Optional[str]) -> float:
     """Extrae el número de cilindros del texto (ej: '4 cylinders' → 4.0)."""
     if not cylinders_str:
         return 0.0
-    import re
     match = re.search(r"(\d+)", cylinders_str)
     return float(match.group(1)) if match else 0.0
 

@@ -1,160 +1,33 @@
-import { useState, useEffect } from 'react';
 import { Settings2, Loader2, Calculator, AlertTriangle } from 'lucide-react';
 import SearchableSelect from './SearchableSelect';
-
-/**
- * Traducciones de opciones inglés → español para la UI.
- * Internamente se envían los valores en inglés al backend.
- */
-const TRANSLATIONS = {
-  fuels: {
-    diesel: 'Diésel',
-    electric: 'Eléctrico',
-    gas: 'Gasolina',
-    hybrid: 'Híbrido',
-    other: 'Otro',
-  },
-  transmissions: {
-    automatic: 'Automática',
-    manual: 'Manual',
-    other: 'Otra',
-  },
-  types: {
-    SUV: 'SUV',
-    bus: 'Bus',
-    convertible: 'Convertible',
-    coupe: 'Coupé',
-    hatchback: 'Hatchback',
-    'mini-van': 'Minivan',
-    offroad: 'Todo terreno',
-    other: 'Otro',
-    pickup: 'Pickup',
-    sedan: 'Sedán',
-    truck: 'Camioneta',
-    unknown: 'No especificado',
-    van: 'Van',
-    wagon: 'Station Wagon',
-  },
-  conditions: {
-    excellent: 'Excelente',
-    fair: 'Regular',
-    good: 'Bueno',
-    'like new': 'Como nuevo',
-    new: 'Nuevo',
-    salvage: 'Salvamento',
-    unknown: 'No especificado',
-  },
-};
+import { useVehicleForm } from '../hooks/useVehicleForm';
+import { TRANSLATIONS, AVAILABLE_YEARS } from '../constants/translations';
 
 /**
  * Formulario de predicción de precios.
- * Carga opciones reales del backend, filtra modelos por marca seleccionada.
+ * Usa el hook useVehicleForm para manejo de estado y validación.
  */
 export default function PredictionForm({ options, optionsLoading, optionsError, onSubmit, loading, onRetryOptions }) {
-  const [formData, setFormData] = useState({
-    manufacturer: '',
-    model: '',
-    year: '',
-    odometer: '',
-    fuel: 'gas',
-    transmission: 'automatic',
-    type: '',
-    condition: 'good',
-  });
-
-  const [customManufacturer, setCustomManufacturer] = useState('');
-  const [customModel, setCustomModel] = useState('');
-  const [errors, setErrors] = useState({});
-  const [warnings, setWarnings] = useState([]);
-  const [availableModels, setAvailableModels] = useState([]);
-
-  // Generar años disponibles (1981 a 2024)
-  const years = Array.from({ length: 44 }, (_, i) => 2024 - i);
-
-  // Filtrar modelos cuando cambia la marca
-  useEffect(() => {
-    if (formData.manufacturer && formData.manufacturer !== '__other__' && options?.models_by_manufacturer) {
-      const models = options.models_by_manufacturer[formData.manufacturer] || [];
-      setAvailableModels(models);
-    } else {
-      setAvailableModels([]);
-    }
-  }, [formData.manufacturer, options]);
-
-  // Manejar warnings por marca/modelo "Otro"
-  useEffect(() => {
-    const newWarnings = [];
-    if (formData.manufacturer === '__other__') {
-      newWarnings.push('Marca no encontrada en los datos históricos. La predicción podría ser menos precisa.');
-    }
-    if (formData.model === '__other__') {
-      newWarnings.push('Modelo no encontrado en los datos históricos. La predicción podría ser menos precisa.');
-    }
-    setWarnings(newWarnings);
-  }, [formData.manufacturer, formData.model]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
-    if (errors[name]) {
-      setErrors(prev => ({ ...prev, [name]: '' }));
-    }
-    // Reset modelo cuando cambia marca
-    if (name === 'manufacturer') {
-      setFormData(prev => ({ ...prev, model: '', [name]: value }));
-      setCustomModel('');
-    }
-  };
-
-  const validate = () => {
-    const newErrors = {};
-
-    if (!formData.manufacturer) newErrors.manufacturer = 'Selecciona una marca';
-    if (formData.manufacturer === '__other__' && !customManufacturer.trim()) {
-      newErrors.manufacturer = 'Ingresa el nombre de la marca';
-    }
-
-    if (!formData.model) newErrors.model = 'Selecciona o ingresa un modelo';
-    if (formData.model === '__other__' && !customModel.trim()) {
-      newErrors.model = 'Ingresa el nombre del modelo';
-    }
-
-    if (!formData.year) newErrors.year = 'Selecciona un año';
-
-    if (!formData.odometer) {
-      newErrors.odometer = 'Ingresa el kilometraje';
-    } else if (parseInt(formData.odometer) < 1 || parseInt(formData.odometer) > 299999) {
-      newErrors.odometer = 'Kilometraje debe estar entre 1 y 299.999';
-    }
-
-    if (!formData.fuel) newErrors.fuel = 'Selecciona tipo de combustible';
-    if (!formData.transmission) newErrors.transmission = 'Selecciona transmisión';
-    if (!formData.type) newErrors.type = 'Selecciona tipo de vehículo';
-
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
-  };
+  const {
+    formData,
+    customManufacturer,
+    customModel,
+    errors,
+    warnings,
+    availableModels,
+    handleChange,
+    setCustomManufacturer,
+    setCustomModel,
+    validate,
+    buildPayload,
+  } = useVehicleForm(options);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (!validate() || loading) return;
-
-    // Construir payload para el backend (valores en inglés)
-    const payload = {
-      manufacturer: formData.manufacturer === '__other__' ? customManufacturer.trim().toLowerCase() : formData.manufacturer,
-      model: formData.model === '__other__' ? customModel.trim().toLowerCase() : formData.model,
-      year: parseInt(formData.year),
-      odometer: parseInt(formData.odometer),
-      fuel: formData.fuel,
-      transmission: formData.transmission,
-      type: formData.type,
-      condition: formData.condition,
-    };
-
-    onSubmit(payload);
+    onSubmit(buildPayload());
   };
 
-  // Capitalizar nombre de marca para mostrar
   const capitalize = (str) => str.charAt(0).toUpperCase() + str.slice(1);
 
   // Estado de carga de opciones
@@ -293,7 +166,7 @@ export default function PredictionForm({ options, optionsLoading, optionsError, 
             onChange={handleChange}
           >
             <option value="">Seleccione año...</option>
-            {years.map(y => (
+            {AVAILABLE_YEARS.map(y => (
               <option key={y} value={y}>{y}</option>
             ))}
           </select>

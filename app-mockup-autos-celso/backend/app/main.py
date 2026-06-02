@@ -1,12 +1,15 @@
 """
 Punto de entrada principal de la API FastAPI.
-Configura CORS, carga el modelo al inicio y registra los routers.
+Configura logging, CORS, carga el modelo y registra los routers.
 """
 
 import logging
+import time
+import uuid
 from contextlib import asynccontextmanager
 
 from fastapi import FastAPI, Request
+from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse
 
@@ -16,48 +19,46 @@ from .config.settings import (
     API_TITLE,
     API_VERSION,
     ENCODING_MAP_PATH,
+    LOG_LEVEL,
     MODEL_PATH,
 )
 from .routers import health, options, predict
 from .utils.model_loader import artifacts
 
-# Configurar logging
+# ── Configurar logging ────────────────────────────────────────────────────────
 logging.basicConfig(
-    level=logging.INFO,
-    format="%(asctime)s | %(levelname)s | %(name)s | %(message)s",
+    level=getattr(logging, LOG_LEVEL, logging.INFO),
+    format="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
 )
 logger = logging.getLogger(__name__)
 
 
+# ── Ciclo de vida del servidor ────────────────────────────────────────────────
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """
-    Evento de ciclo de vida del servidor.
-    Carga el modelo al inicio (una sola vez).
-    """
-    logger.info("🚀 Iniciando servidor...")
-    logger.info(f"   Modelo: {MODEL_PATH}")
-    logger.info(f"   Encoding map: {ENCODING_MAP_PATH}")
-    logger.info(f"   CORS origins: {ALLOWED_ORIGINS}")
+    """Carga el modelo al iniciar y libera recursos al apagar."""
+    logger.info("=" * 60)
+    logger.info("🚀 Iniciando API de Predicción de Precios de Vehículos")
+    logger.info(f"   Versión   : {API_VERSION}")
+    logger.info(f"   Log Level : {LOG_LEVEL}")
+    logger.info(f"   CORS      : {ALLOWED_ORIGINS}")
+    logger.info(f"   Modelo    : {MODEL_PATH}")
+    logger.info("=" * 60)
 
-    # Carga del modelo (operación pesada, ~10-30s para 1.5GB)
     artifacts.load(MODEL_PATH, ENCODING_MAP_PATH)
 
     if artifacts.is_loaded:
-        logger.info("✅ Servidor listo para recibir solicitudes")
+        logger.info("✅ Servidor listo — modelo cargado en memoria")
     else:
-        logger.warning(
-            f"⚠️ Servidor iniciado SIN modelo cargado. "
-            f"Error: {artifacts.load_error}"
-        )
+        logger.warning(f"⚠️  Servidor iniciado SIN modelo. Error: {artifacts.load_error}")
 
-    yield  # El servidor está corriendo
+    yield
 
-    # Cleanup al apagar
     logger.info("🛑 Apagando servidor...")
 
 
-# Crear aplicación FastAPI
+# ── Aplicación FastAPI ────────────────────────────────────────────────────────
 app = FastAPI(
     title=API_TITLE,
     description=API_DESCRIPTION,
@@ -67,7 +68,7 @@ app = FastAPI(
     redoc_url="/redoc",
 )
 
-# Configurar CORS
+# ── Middleware CORS ───────────────────────────────────────────────────────────
 app.add_middleware(
     CORSMiddleware,
     allow_origins=ALLOWED_ORIGINS,
@@ -76,29 +77,44 @@ app.add_middleware(
     allow_headers=["Content-Type", "Authorization"],
 )
 
-# Registrar routers con prefijo /api/v1
-app.include_router(health.router, prefix="/api/v1")
-app.include_router(options.router, prefix="/api/v1")
-app.include_router(predict.router, prefix="/api/v1")
+
+# ── Middleware de request logging ─────────────────────────────────────────────
+@app.middleware("http")
+async def log_requests(request: Request, call_next):
+    """Registra cada request con método, ruta y tiempo de respuesta."""
+    request_id = str(uuid.uuid4())[:8]
+    start = time.time()
+
+    logger.info(f"→ [{request_id}] {request.method} {request.url.path}")
+
+    response = await call_next(request)
+    elapsed_ms = (time.time() - start) * 1000
+
+    logger.info(
+        f"← [{request_id}] {response.status_code} "
+        f"({elapsed_ms:.1f}ms)"
+    )
+    return response
 
 
-# Manejador global de errores de validación (formato personalizado)
-@app.exception_handler(422)
-async def validation_exception_handler(request: Request, exc):
-    """Formatea errores de validación Pydantic en formato legible."""
+# ── Manejador de errores de validación (422) ──────────────────────────────────
+@app.exception_handler(RequestValidationError)
+async def validation_exception_handler(request: Request, exc: RequestValidationError):
+    """
+    Formatea errores de validación Pydantic en estructura legible.
+    Siempre retorna un array de {field, message} consistente.
+    """
     errors = []
-    if hasattr(exc, "errors"):
-        for error in exc.errors():
-            field = " → ".join(str(loc) for loc in error.get("loc", []))
-            errors.append({
-                "field": field,
-                "message": error.get("msg", "Error de validación"),
-            })
-    else:
+    for error in exc.errors():
+        # Extraer campo ignorando el prefijo "body"
+        loc = error.get("loc", [])
+        field = " → ".join(str(l) for l in loc if l != "body")
         errors.append({
-            "field": "unknown",
-            "message": str(exc),
+            "field": field or "desconocido",
+            "message": error.get("msg", "Valor inválido"),
         })
+
+    logger.warning(f"Validación fallida en {request.url.path}: {len(errors)} error(es)")
 
     return JSONResponse(
         status_code=422,
@@ -106,10 +122,27 @@ async def validation_exception_handler(request: Request, exc):
     )
 
 
-# Endpoint raíz
+# ── Manejador de errores inesperados (500) ────────────────────────────────────
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """Captura excepciones no controladas para evitar caídas completas."""
+    logger.exception(f"Error no controlado en {request.url.path}: {exc}")
+    return JSONResponse(
+        status_code=500,
+        content={"detail": "Error interno del servidor. Intenta nuevamente."},
+    )
+
+
+# ── Routers ───────────────────────────────────────────────────────────────────
+app.include_router(health.router, prefix="/api/v1")
+app.include_router(options.router, prefix="/api/v1")
+app.include_router(predict.router, prefix="/api/v1")
+
+
+# ── Endpoint raíz ─────────────────────────────────────────────────────────────
 @app.get("/", tags=["Root"])
 def root():
-    """Endpoint raíz con información básica de la API."""
+    """Información básica de la API."""
     return {
         "name": API_TITLE,
         "version": API_VERSION,

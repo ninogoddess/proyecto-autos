@@ -1,12 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Sparkles, DollarSign, Loader2, AlertTriangle, RefreshCw } from 'lucide-react';
-
-const LOADING_MESSAGES = [
-  "Analizando datos del vehículo...",
-  "Consultando modelo predictivo...",
-  "Procesando características...",
-  "Calculando estimación final..."
-];
+import { LOADING_MESSAGES } from '../constants/translations';
 
 /**
  * Panel de resultados con animaciones y estados visuales.
