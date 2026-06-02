@@ -3,62 +3,42 @@
   <head>
     <meta charset="UTF-8" />
     <!--
-      Favicon principal: burnice_logo.png (forma redonda via clip-path en SVG wrapper)
-      Coloca el archivo burnice_logo.png en /public/assets/burnice_logo.png
-      y este favicon tomará efecto automáticamente.
+      Favicon: burnice_logo.png debe estar en /public/burnice_logo.png
+      Los archivos en /public se sirven desde la raíz "/" en Vite (dev y build).
     -->
-    <link rel="icon" type="image/png" href="/assets/burnice_logo.png" />
-    <link rel="apple-touch-icon" href="/assets/burnice_logo.png" />
+    <link rel="icon" type="image/png" href="/burnice_logo.png" />
+    <link rel="apple-touch-icon" href="/burnice_logo.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Predicción de precios de vehículos usados mediante Machine Learning" />
     <title>Predicción de Precios — Vehículos</title>
-    <style>
-      /*
-        El favicon en sí no puede ser "redondeado" directamente via CSS porque
-        es renderizado por el browser en la pestaña.
-        La solución real es usar un PNG con fondo transparente y esquinas redondeadas.
-        El siguiente script genera dinámicamente un canvas redondeado para el favicon.
-      */
-    </style>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
     <script>
       /**
-       * Genera un favicon redondeado dinámicamente usando Canvas.
-       * Transforma la imagen cuadrada burnice_logo.png en circular.
-       * Se ejecuta una vez al cargar la página.
+       * Aplica forma circular al favicon usando Canvas.
+       * La imagen burnice_logo.png es cuadrada — este script la recorta en círculo.
        */
       (function applyRoundFavicon() {
         const img = new Image();
-        img.src = '/assets/burnice_logo.png';
+        img.src = '/burnice_logo.png';
         img.onload = function () {
           const size = 64;
           const canvas = document.createElement('canvas');
           canvas.width = size;
           canvas.height = size;
           const ctx = canvas.getContext('2d');
-
-          // Dibujar círculo como máscara
           ctx.beginPath();
           ctx.arc(size / 2, size / 2, size / 2, 0, Math.PI * 2);
           ctx.closePath();
           ctx.clip();
-
-          // Dibujar imagen dentro del círculo
           ctx.drawImage(img, 0, 0, size, size);
-
-          // Aplicar como favicon
           const link = document.querySelector("link[rel='icon']");
           if (link) {
             link.type = 'image/png';
             link.href = canvas.toDataURL('image/png');
           }
-        };
-        img.onerror = function () {
-          // Si no existe el archivo aún, mantener el favicon por defecto silenciosamente
-          console.debug('burnice_logo.png no encontrado — usando favicon por defecto');
         };
       })();
     </script>
