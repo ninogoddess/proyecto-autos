@@ -122,17 +122,94 @@ El dataset permite desarrollar soluciones de alto valor, tales como:
 
 ---
 
-## 9. Estructura del Proyecto:p
+## 9. Estructura del Proyecto
+
+```
+proyecto-autos/
+├── app-mockup-autos-celso/         ← Sistema web completo (Hito 2)
+│   ├── src/                        ← Código fuente del frontend (React)
+│   │   ├── components/             ← Componentes React
+│   │   ├── hooks/                  ← Hooks personalizados
+│   │   ├── services/               ← Capa de comunicación HTTP (Axios)
+│   │   └── constants/              ← Traducciones y constantes
+│   ├── backend/                    ← API FastAPI (Python)
+│   │   ├── app/
+│   │   │   ├── config/             ← Configuración centralizada
+│   │   │   ├── routers/            ← Endpoints HTTP
+│   │   │   ├── services/           ← Lógica de negocio y preprocesamiento
+│   │   │   ├── schemas/            ← Modelos Pydantic (validación)
+│   │   │   └── utils/              ← Cargador de modelo y utilidades
+│   │   ├── artifacts/              ← Artefactos ML generados (JSON)
+│   │   └── scripts/                ← Scripts de generación de artefactos
+│   ├── public/                     ← Assets estáticos (favicon, fondo)
+│   └── docs/                       ← Documentación técnica del sistema
+├── data/
+│   ├── raw/                        ← Dataset original sin modificar
+│   └── processed/                  ← Datasets procesados
+├── models/                         ← Modelos entrenados (.pkl)
+├── notebooks/                      ← Notebooks de análisis y preprocesamiento
+├── reports/                        ← Informes técnicos del proyecto
+├── results/                        ← Métricas de entrenamiento
+└── src/                            ← Scripts de entrenamiento de modelos
+```
+
 ---
 
-## 10. Reproducibilidad
+## 10. Ejecución Local del Sistema (Hito 2)
 
-Para reproducir tanto los pasos como la obtención de datos simplemente ejecute los notebooks dentro de la carpeta `notebooks`de este repositorio, en el orden de sus nombres. Todo el código está dispuesto de modo tal que sea sencillamente replicable sin instalar nada extra o fuera de lo común.
-Luego, puede obtener el dataset procesado desde Kaagle ya se para descarga o uso libre, según las indicaciones del script `uso_dataset_celso_kaagle.py` o en el enlace https://www.kaggle.com/datasets/celsofariasaraya/vehicules-processed-celso.
-Posteriormente, se ejecutan los scripts dentro de la carperta `src`.
+El sistema web requiere levantar dos componentes simultáneamente. Para instrucciones completas ver `reports/04_instrucciones_levantamiento.md`.
 
-## 11. Próximos Pasos 
+### Requisitos
+- Python 3.11+, Node.js 18+
+- `models/random_forest/model.pkl` (~1.5 GB)
+- `data/processed/model_encoding_map.csv`
 
-Esto puede mutar conforme al avance del proyecto.
+### Backend (FastAPI — puerto 8000)
 
-- Evaluación del modelo mediante sistema de usaje
+```powershell
+cd app-mockup-autos-celso/backend
+python -m venv venv
+.\venv\Scripts\Activate.ps1
+pip install -r requirements.txt
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+API disponible en: `http://localhost:8000`  
+Swagger UI en: `http://localhost:8000/docs`
+
+### Frontend (React — puerto 5173)
+
+```powershell
+cd app-mockup-autos-celso
+npm install
+npm run dev
+```
+
+Aplicación disponible en: `http://localhost:5173`
+
+---
+
+## 11. Reproducibilidad
+
+Para reproducir el proyecto completo:
+
+1. Clonar el repositorio
+2. Ejecutar los notebooks en orden (`notebooks/01_EDA...`, `notebooks/02_preprocesamiento...`)
+3. Obtener el dataset procesado desde Kaggle: https://www.kaggle.com/datasets/celsofariasaraya/vehicules-processed-celso
+4. Ejecutar los scripts de entrenamiento en `src/`
+5. Levantar el sistema web según las instrucciones de `reports/04_instrucciones_levantamiento.md`
+
+---
+
+## 12. Documentación del Proyecto
+
+| Archivo | Descripción |
+|---------|-------------|
+| `reports/01_data_quality.md` | EDA y análisis de calidad de datos |
+| `reports/01.5_segundo_preprocesamiento.md` | Transformación del dataset |
+| `reports/02_comparación_técnicas.md` | Comparación de modelos ML |
+| `reports/03_ajustes_backend.md` | Ajustes durante la integración |
+| `reports/04_instrucciones_levantamiento.md` | Guía de ejecución local |
+| `reports/05_informe_despliegue.md` | Informe técnico del Hito 2 |
+| `app-mockup-autos-celso/docs/DEPLOYMENT_ANALYSIS.md` | Análisis de plataformas cloud |
+| `app-mockup-autos-celso/docs/DEPLOYMENT_GUIDE.md` | Guía de despliegue alternativo |

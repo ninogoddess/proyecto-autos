@@ -18,14 +18,21 @@ from ..services.preprocessor import (
     PAINT_COLORS,
 )
 
-# Cargar modelos por marca desde el artefacto generado
-_MODELS_BY_MANUFACTURER: dict[str, list[str]] = {}
 _artifacts_dir = Path(__file__).resolve().parent.parent / "artifacts"
-_models_path = _artifacts_dir / "models_by_manufacturer.json"
 
+# Cargar modelos por marca
+_MODELS_BY_MANUFACTURER: dict[str, list[str]] = {}
+_models_path = _artifacts_dir / "models_by_manufacturer.json"
 if _models_path.exists():
     with open(_models_path, "r", encoding="utf-8") as f:
         _MODELS_BY_MANUFACTURER = json.load(f)
+
+# Cargar mapeo modelo → tipo de vehículo
+_MODEL_TYPE_MAP: dict[str, str] = {}
+_type_map_path = _artifacts_dir / "model_type_map.json"
+if _type_map_path.exists():
+    with open(_type_map_path, "r", encoding="utf-8") as f:
+        _MODEL_TYPE_MAP = json.load(f)
 
 
 def get_options() -> dict:
@@ -45,6 +52,7 @@ def get_options() -> dict:
     return {
         "manufacturers": all_manufacturers,
         "models_by_manufacturer": _MODELS_BY_MANUFACTURER,
+        "model_type_map": _MODEL_TYPE_MAP,
         "fuels": all_fuels,
         "transmissions": all_transmissions,
         "types": all_types,

@@ -64,10 +64,10 @@ function App() {
     <div className="app-container">
       <header className="header">
         <div className="header-icon">
-          <Car size={48} color="var(--primary)" />
+          <Car size={36} color="var(--primary)" />
         </div>
-        <h1>Predicción de Precios</h1>
-        <p>Valora tu vehículo al instante con nuestro modelo avanzado de Machine Learning.</p>
+        <h1>Predicción de Precios de Vehículos</h1>
+        <p>Valoración instantánea con modelo de Machine Learning</p>
       </header>
 
       <main className="dashboard-layout">
