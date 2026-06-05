@@ -1,0 +1,20 @@
+https://github.com/ninogoddess/proyecto-autos/tree/main/
+
+Descargue el modelo random forest en:
+
+https://uandresbelloedu-my.sharepoint.com/:u:/g/personal/c_farasaraya1_uandresbello_edu/IQAJguXk5NHRSobkVJO9NPs-AdwxkTtYyQC6ArIhTL6Sfzk?e=5Mw6PF
+
+Además, ya sea que clone el repo desde github o lo descargue 
+y use directamente asegúrese de poner modelo esté en:
+
+/ruta_a_repo/proyecto-autos/models/random_forest/model.pkl
+
+Para poder levantar el backend y poder usar el frontend.
+
+Por su parte, el informe word está en la carpeta Hito 2 dentro de entregas, aun así
+le recomiendo leerlo desde el archivo 05_informe_despliegue.md, es el mismo contenido
+solo que en .md se lee mas cómodamente.
+
+De este modo los archivos mas importantes serían los .md 04 y 05 dento de la carpeta
+reports, pues con ellos puede levantar todo el sistema y leer el segundo informe, 
+respectivamente.
