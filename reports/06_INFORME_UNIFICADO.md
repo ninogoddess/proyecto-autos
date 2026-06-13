@@ -303,7 +303,7 @@ Sobre el conjunto de prueba; en escala normalizada, sacados de `results/metrics_
 
 ### 5.4 Qué pasó, leído con calma
 
-**Los lineales: Lineal, Ridge, Lasso.** Llegaron a un R² cercano a 0,81. Eso alcanza para entender la superficie del problema, pero no para llegar al fondo. Lineal y Ridge dieron resultados idénticos, lo que dice algo lindo: no había inestabilidad numérica que la regularización tuviera que arreglar, el modelo ya estaba en equilibrio desde su forma más simple. Lasso, por su parte, eliminó cerca del 45 % de las variables sin perder casi nada de rendimiento, lo que sugiere que había bastante redundancia dando vueltas.
+**Los lineales: Lineal, Ridge, Lasso.** Llegaron a un R² cercano a 0,81. Eso alcanza para entender la superficie del problema, mas no para llegar al fondo. Lineal y Ridge dieron resultados idénticos, lo que dice algo lindo: no había inestabilidad numérica que la regularización tuviera que arreglar, el modelo ya estaba en equilibrio desde su forma más simple. Lasso, por su parte, eliminó cerca del 45 % de las variables sin perder casi nada de rendimiento, lo que sugiere que había bastante redundancia dando vueltas.
 
 **Gradient Boosting.** Mejoró respecto a los lineales con un R² = 0,8566, más se quedó a medio camino. Con árboles poco profundos, su enfoque secuencial no logró alcanzar lo que el bagging consiguió en este dataset.
 
@@ -318,7 +318,7 @@ La comparación también mira dos cosas que suelen olvidarse:
 
 ### 5.6 El ganador
 
-Obviamente **Random Forest**, priorizando el desempeño en métricas. Asumo a conciencia que es ridículamente pesado comparado con el resto, pero el salto de calidad que da no lo iguala ninguno. Y eso, para este proyecto, manda.
+Obviamente **Random Forest**, priorizando el desempeño en métricas. Asumo a conciencia que es ridículamente pesado comparado con el resto, y aún así el salto de calidad que da no lo iguala ninguno. Y eso, para este proyecto, manda.
 
 > El detalle completo está en `reports/02_comparación_técnicas.md`.
 
@@ -592,7 +592,7 @@ Para abrir un poco la caja negra usé la **importancia de variables** del Random
 | 7 | `fuel_gas` | 0,0124 | Tipo de combustible |
 | 8 | `condition_good` | 0,0097 | Estado del vehículo |
 
-Las tres de arriba `model_encoded`, `year`, `odometer` mandan más del 85 % de la decisión; el resto es ajuste fino. Y tiene todo el sentido del mundo: el modelo específico, que ya trae el precio promedio histórico metido vía Target Encoding, y la antigüedad son los que mueven la aguja. Curioso que el kilometraje quede tan atrás, pero frente al año y al modelo, pasa a segundo plano.
+Las tres de arriba `model_encoded`, `year`, `odometer` mandan más del 85 % de la decisión; el resto es ajuste fino. Y tiene todo el sentido del mundo: el modelo específico, que ya trae el precio promedio histórico metido vía Target Encoding, y la antigüedad son los que mueven la aguja. Curioso que el kilometraje quede tan atrás, y frente al año y al modelo, pasa a segundo plano.
 
 **Sobre SHAP:** la rúbrica sugiere usar técnicas como SHAP. En esta versión resolví la interpretabilidad con la importancia de variables por impureza, que es nativa de Random Forest y alcanza para identificar los factores que dominan. Sumar **SHAP** sería el siguiente paso lógico, daría explicaciones por predicción individual y la dirección del efecto de cada variable, y lo dejo anotado como mejora futura. No lo pongo como hecho porque no lo hice, y prefiero no inventar resultados.
 
@@ -604,7 +604,7 @@ Las tres de arriba `model_encoded`, `year`, `odometer` mandan más del 85 % de l
 | RF-4..RF-8 (API e inferencia real) | Cumplido | Endpoints andando, pipeline replicado, respuesta en USD/CLP |
 | RNF-1 Usabilidad | Cumplido | Interfaz responsiva, validación y estados de carga |
 | RNF-2 Explicabilidad | Parcial | Importancia de variables + advertencias; falta SHAP |
-| RNF-3 Escalabilidad | Cumplido, con asterisco | Escala en horizontal, pero el peso del modelo, 1,5 GB, limita el despliegue en servicios gratuitos |
+| RNF-3 Escalabilidad | Cumplido, con asterisco | Escala en horizontal, mas el peso del modelo, 1,5 GB, limita el despliegue en servicios gratuitos |
 | RNF-4 Seguridad | Cumplido | Validación en dos capas, CORS explícito, `.env` fuera del repo |
 | RNF-5 Confiabilidad | Cumplido | Errores manejados por capas, modo degradado, < 5 s |
 | RNF-6 Monitoreabilidad | Cumplido | Logging con ID y tiempo, `/health` |
@@ -683,7 +683,7 @@ El proyecto cumplió lo que se propuso: armar un modelo capaz de estimar el prec
 
 **Lo principal que quedó claro:**
 
-- **El problema no es lineal, y punto.** Los modelos lineales llegaron a un R² de ≈ 0,81, suficiente para asomarse al problema pero incapaz de capturar su forma real. Random Forest subió el R² a 0,9497 y dejó en evidencia que la tasación de un auto sale de un montón de interacciones locales, no de una recta.
+- **El problema no es lineal, y punto.** Los modelos lineales llegaron a un R² de ≈ 0,81, suficiente para asomarse al problema mas incapaz de capturar su forma real. Random Forest subió el R² a 0,9497 y dejó en evidencia que la tasación de un auto sale de un montón de interacciones locales, no de una recta.
 - **El modelo y el año son los que mandan.** La importancia de variables mostró que `model_encoded` ≈ 60 %, `year` ≈ 21 % y `odometer` ≈ 5 % se llevan casi toda la decisión. Coincide con lo que cualquiera que sepa de autos te diría.
 - **La calidad de los datos pesó tanto como el algoritmo.** Las decisiones de limpieza, el Target Encoding de `model` y la normalización fueron tan determinantes como elegir bien el modelo.
 - **Desplegar también tiene su costo.** El peso del ganador ~1,5 GB me obligó a correrlo en local con un túnel seguro, y eso muestra la tensión real entre precisión y costo de operación.
