@@ -52,7 +52,11 @@ proyecto-autos/
         └── model_encoding_map.csv
 ```
 
-> Si no dispones de estos archivos, contactar al autor del proyecto o generarlos ejecutando los notebooks en orden; `notebooks/01_EDA...`, `notebooks/02_preprocesamiento...`, scripts en `src/`; siguiendo las instrucciones de los demas reportes y notebooks, son totalmente reproducibles.
+Modelo descargable en: 
+
+https://uandresbelloedu-my.sharepoint.com/:u:/g/personal/c_farasaraya1_uandresbello_edu/IQAJguXk5NHRSobkVJO9NPs-AdwxkTtYyQC6ArIhTL6Sfzk?e=5Mw6PF
+
+> Si no se dispone de estos archivos, contactar al autor del proyecto o generarlos ejecutando los notebooks en orden; `notebooks/01_EDA...`, `notebooks/02_preprocesamiento...`, scripts en `src/`; siguiendo las instrucciones de los demas reportes y notebooks, son totalmente reproducibles.
 
 ---
 
