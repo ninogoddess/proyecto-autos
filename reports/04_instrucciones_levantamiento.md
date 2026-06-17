@@ -341,3 +341,12 @@ netstat -ano | findstr :8000
 python -m uvicorn app.main:app --port 8001
 # Y actualizar .env del frontend: VITE_API_URL=http://localhost:8001
 ```
+
+
+# Instrucciones Rapidas
+
+autos-celso\scripts\activate
+
+python -m uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+
+npm run dev
