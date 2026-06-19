@@ -11,11 +11,10 @@ y use directamente asegúrese de poner modelo esté en:
 
 Para poder levantar el backend y poder usar el frontend.
 
-Por su parte, el informe word y la presentación ppt están en 
-la carpeta HitoFinal dentro de entregas, aun así
-le recomiendo leerlo desde el archivo 06_informe_unificado, es el mismo contenido
+Por su parte, el informe word está en la carpeta Hito 2 dentro de entregas, aun así
+le recomiendo leerlo desde el archivo 05_informe_despliegue.md, es el mismo contenido
 solo que en .md se lee mas cómodamente.
 
-De este modo los archivos mas importantes serían los .md 04, 05 y 06 dento de la carpeta
-reports, pues con ellos puede levantar todo el sistema y leer el informe final, 
+De este modo los archivos mas importantes serían los .md 04 y 05 dento de la carpeta
+reports, pues con ellos puede levantar todo el sistema y leer el segundo informe, 
 respectivamente.
